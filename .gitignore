@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test outputs
+*.log
+audit_output.txt
+
+# Test artifacts (large files)
+test_artifacts/
+
+# Legacy and test folders
+Legacy/
+Tests/
+
+# Reconstruction files (large)
+Recon/
+
+# Generated files and artifacts
+Receipts/
+Seeds/
+Seed/
+*.backup
+*.broken
+*.pre_upgrade
+*.zip
+.audit_results.json
+.self_containment_proof.json
+clf_law_registry.json
+theta_n_incomplete.jsonl
+test_*.bin
+clf
