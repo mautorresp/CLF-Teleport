@@ -414,6 +414,134 @@ EVIDENCE 5: Bijection Without Full Reconstruction
 
 ---
 
+## 📊 Unambiguous Mathematical Specification of θ
+
+**To eliminate all interpretation ambiguity, here is the formal algorithmic definition using first-order logic:**
+
+### Definition of θ (Recognition Function)
+
+Let:
+- `ℒ = [D₁, D₂, D₃, D₄, D₅, D₆, D₇, D₈, D₉, D_DISCRETE_TABLE]` be the ordered family sequence
+- `recognize_k: ℤ₈ⁿ → (Σ_k ∪ {⊥})` be the recognition predicate for family D_k
+- `⊥` denote "no match"
+
+**Definition:**
+
+```
+θ(S) = Σ_k*  where k* is defined by:
+
+k* = min{ k ∈ {1,2,...,9,10} : recognize_k(S) ≠ ⊥ }
+
+Equivalently in procedural form:
+
+θ(S) := {
+  if recognize_1(S) ≠ ⊥: return recognize_1(S)
+  else if recognize_2(S) ≠ ⊥: return recognize_2(S)
+  else if recognize_3(S) ≠ ⊥: return recognize_3(S)
+  else if recognize_4(S) ≠ ⊥: return recognize_4(S)
+  else if recognize_5(S) ≠ ⊥: return recognize_5(S)
+  else if recognize_6(S) ≠ ⊥: return recognize_6(S)
+  else if recognize_7(S) ≠ ⊥: return recognize_7(S)
+  else if recognize_8(S) ≠ ⊥: return recognize_8(S)
+  else if recognize_9(S) ≠ ⊥: return recognize_9(S)
+  else: return recognize_DISCRETE_TABLE(S)  // Always succeeds
+}
+```
+
+**Key properties of this definition:**
+
+1. **Deterministic**: For any S, exactly one branch executes
+2. **Well-defined**: Function returns exactly one value for any input
+3. **No optimization**: No argmin, no comparison of multiple candidates
+4. **No encoding**: No computation of |C(Σ)| or bit-length
+5. **Sequential**: recognize_{k+1} only called if all recognize_j(S) = ⊥ for j < k+1
+
+### What This Definition EXCLUDES (Explicitly)
+
+The following formulations are **NOT equivalent** to CLF's θ:
+
+```
+❌ WRONG: θ(S) = argmin_{Σ ∈ Candidates(S)} |C(Σ)|
+   Reason: Requires evaluating all families, then comparing
+
+❌ WRONG: θ(S) = argmin_{k: recognize_k(S) ≠ ⊥} degree(D_k)
+   Reason: Requires evaluating all matching families, then selecting
+
+❌ WRONG: θ(S) = canonical(first_match(S))
+   Reason: Requires post-processing to collapse equivalent forms
+
+❌ WRONG: θ(S) = first_match with tie-break rule
+   Reason: Ties cannot occur in sequential evaluation
+```
+
+### Proof That θ is Well-Defined (Without Tie-Break)
+
+**Theorem:** θ: ℤ₈ⁿ → Σ is a well-defined function.
+
+**Proof:**
+
+For any S ∈ ℤ₈ⁿ, we must show θ(S) returns exactly one value.
+
+**Case analysis by sequential evaluation:**
+
+- If recognize_1(S) ≠ ⊥: 
+  * θ(S) = recognize_1(S)
+  * Function returns, remaining recognizers never called
+  * Result: One value ✓
+
+- If recognize_1(S) = ⊥ and recognize_2(S) ≠ ⊥:
+  * θ(S) = recognize_2(S)
+  * Function returns, remaining recognizers never called
+  * Result: One value ✓
+
+- ... (similar for D₃-D₉)
+
+- If all recognize_k(S) = ⊥ for k ∈ {1,...,9}:
+  * θ(S) = recognize_DISCRETE_TABLE(S)
+  * D_DISCRETE_TABLE never returns ⊥ (universal fallback)
+  * Result: One value ✓
+
+**In all cases, exactly one value is returned. Therefore θ is well-defined. ∎**
+
+**Uniqueness follows from evaluation order, not from tie-breaking:**
+- Only one recognize_k is satisfied at any point
+- If multiple families could match S, only the first in sequence returns
+- This IS the uniqueness mechanism (no tie-break needed)
+
+### Why "Tie-Break Rule" Is Mathematically Meaningless Here
+
+A tie-break rule has the form:
+```
+If |C(Σ₁)| = |C(Σ₂)|, choose lexmin(C(Σ₁), C(Σ₂))
+```
+
+**For this to apply, both Σ₁ and Σ₂ must exist simultaneously.**
+
+**In CLF's sequential evaluation:**
+```
+if recognize_1(S) ≠ ⊥:
+    return Σ₁        // Σ₁ exists, function exits
+                     // Σ₂ is never created (recognize_2 never called)
+```
+
+**At the point of return:**
+- Σ₁ exists in memory
+- Σ₂ does not exist (never evaluated)
+- Cannot compare |C(Σ₁)| vs |C(Σ₂)| because Σ₂ doesn't exist
+- Therefore: Tie-break rule is undefined (comparing one value)
+
+**A tie-break rule only makes sense when the algorithm structure is:**
+```
+candidates = [recognize_1(S), recognize_2(S), ..., recognize_9(S)]
+candidates = [c for c in candidates if c ≠ ⊥]  // Multiple candidates exist
+if len(candidates) > 1:  // Tie is possible
+    apply_tie_break(candidates)
+```
+
+**CLF's structure explicitly prevents this: sequential evaluation with early return.**
+
+---
+
 ## Ontological Domain of CLF
 
 CLF operates on **any OS-parsable binary string** (universal input scope).  
