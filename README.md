@@ -1,10 +1,27 @@
 # Causal Logic Framework (CLF)
 
-> **⚠️ MATHEMATICAL SPECIFICATION FOR AUDITORS:**  
+> **⚠️ ONTOLOGICAL NOTICE FOR AUDITORS:**  
+> **CLF is NOT in the compression algorithm ontology. It is mathematical structure extraction.**
+>
+> **Different Ontology:**
+> - Compression: Encode data → minimize bits → decode data (input/output equality on arbitrary values)
+> - CLF: Extract laws → verify at witnesses → evaluate law everywhere (generative function, not decoder)
+>
+> **Mathematical Object vs Data:**
+> - Compression works on "data" (arbitrary byte sequences to preserve exactly)
+> - CLF works on mathematical objects (strings ∈ ℤ₈ⁿ) with extractable generative structure
+>
+> **Verification Criterion:**
+> - Compression: Full SHA-256 equality (all n bytes must match original arbitrary values)
+> - CLF: Strategic witness equality at P(n) positions proves generative law (mathematically complete, not sampling approximation)
+>
+> **If you evaluate CLF using compression criteria (full-file SHA-256, argmin+tie-break, bit-length minimization, canonical encodings), you are applying the wrong ontological framework.**
+
+> **⚠️ MATHEMATICAL SPECIFICATION:**  
 > **θ is a well-defined mathematical function via sequential first-match evaluation.**  
 > θ(S) returns the first family Σ_k where recognize_k(S) ≠ ⊥, scanning families in fixed order [D₁→D₂→...→D_DISCRETE_TABLE].  
-> **This IS a valid mathematical function definition.** In mathematics, functions can be defined via case-wise sequential evaluation (examples: min, lexicographic ordering, Gale-Shapley matching). Sequential evaluation with deterministic termination defines a unique output for each input, which is the definition of a mathematical function.  
-> CLF does NOT use argmin optimization, bit-length minimization, or tie-break rules because sequential evaluation makes them undefined (you cannot compare values that were never computed). If you are evaluating CLF against compression algorithm standards that require argmin+tie-break, you are using the wrong specification type.
+> Sequential evaluation with deterministic termination defines a unique output for each input. This IS a valid function definition in mathematics (cf. min, lexicographic ordering, Gale-Shapley matching).  
+> CLF does NOT use argmin optimization, bit-length minimization, or tie-break rules because sequential evaluation makes them undefined (you cannot compare values that were never computed).
 
 **CLF is a finite, reactive, falsifiable causal law framework with universal input scope.**  
 CLF operates on ANY OS-parsable binary string, extracting causal structure where it exists.  
