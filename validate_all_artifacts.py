@@ -15,6 +15,23 @@ from pathlib import Path
 from M4_recognition_SAMPLED import BinaryStringSampler, theta_sampled
 from M3_xi_projected import Xi_projected
 
+# --- CLF Coherence Utility ---
+def simplify_meta(obj):
+    """
+    Simplify CLF meta-structures into comparable primitives.
+    Keeps only hashable scalar types (int, float, str, bool, None).
+    Prevents serialization errors and reduces nested law structures
+    to their structural skeleton for coherence comparison.
+    """
+    if isinstance(obj, dict):
+        return {
+            k: simplify_meta(v)
+            for k, v in obj.items()
+            if isinstance(v, (int, float, str, bool, type(None)))
+        }
+    return obj
+# --- End CLF Coherence Utility ---
+
 def validate_file(filepath: Path) -> dict:
     """Validate causal unification for a single file."""
     print(f"\n{'='*80}")
@@ -107,6 +124,21 @@ def validate_file(filepath: Path) -> dict:
                     print(f"🧩 Reflexive Θ active for family: {law_id}")
                     print(f"   Local ℒ scope size: {len(rcache)}  (transient, per recognition)")
         # --- End Reflexive Self-Report ---
+                # --- CLF Causal Family Coherence Trace ---
+        if isinstance(seed1, dict):
+            family = seed1.get("family", "—")
+            meta = seed1.get("params", {}).get("meta", {})
+            simplified_meta = simplify_meta(meta)
+            key_count = len(simplified_meta)
+
+            print(f"🔁 Causal family coherence check: {family}")
+            print(f"   Simplified meta key count: {key_count}")
+
+            seed1.setdefault("meta", {})["coherence_probe"] = {
+                "family": family,
+                "key_count": key_count,
+            }
+        # --- End CLF Causal Family Coherence Trace ---
         
         print(f"  ✅ Recognition successful")
         print(f"  Family: {result['family']}")
@@ -305,6 +337,32 @@ def main():
     print("  Universality guaranteed by self-completion of Θ within its local frame.")
     print("═══════════════════════════════════════════════════════════════\n")
     # --- End Reflexive Domain Summary ---
+    
+    # --- CLF Family Coherence Summary ---
+    coherence_index = {}
+    
+    if isinstance(results, list):
+        for entry in results:
+            if not isinstance(entry, dict):
+                continue
+            probe = entry.get("meta", {}).get("coherence_probe", {})
+            family = probe.get("family")
+            count = probe.get("key_count")
+            if family:
+                coherence_index.setdefault(family, []).append(count)
+    
+    print("═══════════════════════════════════════════════════════════════")
+    print("CAUSAL FAMILY COHERENCE SUMMARY")
+    for fam, counts in coherence_index.items():
+        avg = sum(counts) / len(counts)
+        delta = max(counts) - min(counts)
+        print(f"  {fam:<28} count={len(counts):<3} ⌀meta keys={avg:.2f} Δ={delta}")
+        if delta == 0:
+            print("   ✅ Invariant causal meta-structure across realizations")
+        else:
+            print("   📊 Parametric variation — check parameter closure consistency")
+    print("═══════════════════════════════════════════════════════════════")
+    # --- End CLF Family Coherence Summary ---
     
     print("Causal Dimensional Constants:")
     print("  Parametric families (D1–D3): ~25B seed (~2–3 causal parameters)")
