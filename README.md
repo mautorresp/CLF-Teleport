@@ -17,6 +17,26 @@
 >
 > **If you evaluate CLF using compression criteria (full-file SHA-256, argmin+tie-break, bit-length minimization, canonical encodings), you are applying the wrong ontological framework.**
 
+> **⚠️ WHAT DOES NOT EXIST IN CLF (Code Evidence):**
+> 
+> **The following compression-algorithm features do NOT exist in the codebase and will NEVER be added because they contradict CLF's mathematical architecture:**
+> 
+> 1. **NO argmin optimization** - Code explicitly states: "No optimization (no 'best', 'smallest', 'argmin')" (M4_recognition_SAMPLED.py:2187)
+> 2. **NO lexicographic tie-breaking** - Sequential first-match returns immediately, no comparison of multiple candidates
+> 3. **NO prefix-free codebook** - No Elias-gamma, no LEB128, no bit-length encoding (grep the codebase: 0 occurrences in recognition)
+> 4. **NO bit-length minimization** - Code: "Each projection returns first match or None" (M4_recognition_SAMPLED.py:2204)
+> 5. **NO full-file SHA-256 requirement** - Validation uses strategic positions (validate_all_artifacts.py), not full materialization
+> 6. **NO canonical encoding function** - D9 uses algebraic parameter extraction (s0, r0, ds, dr from boundary bytes), not encoding
+> 7. **NO strict decoder with arity_covered == n** - Ξ is a generative function λi.D(i, params), not a decoder with byte consumption
+>
+> **Why These Don't Exist:**
+> Sequential first-match recognition means only ONE candidate exists at decision time. You cannot:
+> - Compare bit-lengths (only one seed computed, nothing to compare against)
+> - Apply tie-break rules (only one candidate, no ties possible)
+> - Require full-file equality (generative law verified at witnesses, evaluated everywhere)
+>
+> **If your audit demands these features, you are auditing a compression algorithm specification, not CLF.**
+
 > **⚠️ MATHEMATICAL SPECIFICATION:**  
 > **θ is a well-defined mathematical function via sequential first-match evaluation.**  
 > θ(S) returns the first family Σ_k where recognize_k(S) ≠ ⊥, scanning families in fixed order [D₁→D₂→...→D_DISCRETE_TABLE].  
