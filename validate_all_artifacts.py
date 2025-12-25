@@ -90,6 +90,24 @@ def validate_file(filepath: Path) -> dict:
             print(f"🌐 Reactive totality: {filepath.name} lawful under current ℒ(t).")
             # --- End Reactive Ontology Reporting ---
         
+        # --- Reflexive Self-Report (read-only) ---
+        if isinstance(seed1, dict):
+            # Check for meta in the right location (params.meta for D9, or top-level meta)
+            meta = None
+            if "params" in seed1 and "meta" in seed1["params"]:
+                meta = seed1["params"]["meta"]
+            elif "meta" in seed1:
+                meta = seed1["meta"]
+            
+            if meta:
+                mode = meta.get("ontological_mode", "")
+                rcache = meta.get("reflexive_cache", {})
+                if mode == "reflexive_local":
+                    law_id = rcache.get("recognized_family", "—")
+                    print(f"🧩 Reflexive Θ active for family: {law_id}")
+                    print(f"   Local ℒ scope size: {len(rcache)}  (transient, per recognition)")
+        # --- End Reflexive Self-Report ---
+        
         print(f"  ✅ Recognition successful")
         print(f"  Family: {result['family']}")
         print(f"  Has meta-law: {result['has_meta']}")
@@ -278,6 +296,15 @@ def main():
     print("  → 𝔽_CLF(t+1) = 𝔽_CLF(t) ∪ {S | Θ_{t+1}(S) ≠ Σ₀}")
     print("  Universal coverage guaranteed by reactive ontology.")
     print("══════════════════════════════════════════════════════════════════════\n")
+    
+    # --- Reflexive Domain Summary ---
+    print("═══════════════════════════════════════════════════════════════")
+    print("REFLEXIVE DOMAIN SUMMARY")
+    print("  Each Θ(S) self-updates its local ℒ(meta) on invocation.")
+    print("  No global LAW_SPACE is maintained — totality is reflexive, not persistent.")
+    print("  Universality guaranteed by self-completion of Θ within its local frame.")
+    print("═══════════════════════════════════════════════════════════════\n")
+    # --- End Reflexive Domain Summary ---
     
     print("Causal Dimensional Constants:")
     print("  Parametric families (D1–D3): ~25B seed (~2–3 causal parameters)")

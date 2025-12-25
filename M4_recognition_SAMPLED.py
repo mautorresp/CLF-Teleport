@@ -2377,6 +2377,28 @@ def theta_sampled(
             "params": d9_params,
             "n": n
         }
+        
+        # --- CLF Reflexive Cache Extension (schema-safe, non-global) ---
+        if isinstance(seed, dict):
+            # For D9 structures, meta is in params
+            if "params" in seed:
+                meta = seed["params"].setdefault("meta", {})
+                reflexive_cache = meta.get("reflexive_cache", {})
+                
+                # Ensure cache is a local dictionary (not shared or global)
+                if not isinstance(reflexive_cache, dict):
+                    reflexive_cache = {}
+                
+                # Record reflexive self-observation
+                reflexive_cache["recognized_family"] = seed.get("family", None)
+                reflexive_cache["recognized_meta"] = seed.get("params", {}).get("meta", None)
+                reflexive_cache["reflexive_timestamp"] = datetime.utcnow().isoformat()
+                
+                # Write back the updated cache
+                meta["reflexive_cache"] = reflexive_cache
+                meta["ontological_mode"] = "reflexive_local"
+        # --- End Reflexive Cache Extension ---
+        
         return unify_causal_structure(seed)
 
     # ════════════════════════════════════════════════════════════════════════
@@ -2440,6 +2462,31 @@ def unify_causal_structure(seed: Dict[str, Any]) -> Dict[str, Any]:
             
             # Verify canonicalization achieved
             if canonical_seed.get("family") == "D9_RADIAL":
+                # --- CLF Reflexive Cache Extension (schema-safe, non-global) ---
+                if isinstance(canonical_seed, dict):
+                    # Locate meta in the correct place - inside params for D9 structures
+                    if "params" in canonical_seed and "meta" in canonical_seed["params"]:
+                        meta = canonical_seed["params"]["meta"]
+                    else:
+                        meta = canonical_seed.setdefault("meta", {})
+                    
+                    reflexive_cache = meta.get("reflexive_cache", {})
+                    
+                    # Ensure cache is a local dictionary (not shared or global)
+                    if not isinstance(reflexive_cache, dict):
+                        reflexive_cache = {}
+                    
+                    # Record reflexive self-observation
+                    reflexive_cache["recognized_family"] = canonical_seed.get("family", None)
+                    reflexive_cache["recognized_meta"] = canonical_seed.get("params", {}).get("meta", None)
+                    reflexive_cache["reflexive_timestamp"] = datetime.utcnow().isoformat()
+                    
+                    # Write back the updated cache
+                    meta["reflexive_cache"] = reflexive_cache
+                    
+                    # Minimal reflexive tag
+                    meta["ontological_mode"] = "reflexive_local"
+                # --- End Reflexive Cache Extension ---
                 return canonical_seed
             
             return seed
@@ -2452,6 +2499,32 @@ def unify_causal_structure(seed: Dict[str, Any]) -> Dict[str, Any]:
     except Exception:
         # Failure: return original (idempotence preserved)
         pass
+    
+    # --- CLF Reflexive Cache Extension (schema-safe, non-global) ---
+    if isinstance(seed, dict):
+        # Locate meta in the correct place - inside params for D9 structures
+        if "params" in seed and "meta" in seed["params"]:
+            meta = seed["params"]["meta"]
+        else:
+            meta = seed.setdefault("meta", {})
+        
+        reflexive_cache = meta.get("reflexive_cache", {})
+        
+        # Ensure cache is a local dictionary (not shared or global)
+        if not isinstance(reflexive_cache, dict):
+            reflexive_cache = {}
+        
+        # Record reflexive self-observation
+        reflexive_cache["recognized_family"] = seed.get("family", None)
+        reflexive_cache["recognized_meta"] = seed.get("params", {}).get("meta", None)
+        reflexive_cache["reflexive_timestamp"] = datetime.utcnow().isoformat()
+        
+        # Write back the updated cache
+        meta["reflexive_cache"] = reflexive_cache
+        
+        # Minimal reflexive tag
+        meta["ontological_mode"] = "reflexive_local"
+    # --- End Reflexive Cache Extension ---
     
     return seed
 
