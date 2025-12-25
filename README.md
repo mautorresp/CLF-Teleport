@@ -1,5 +1,9 @@
 # Causal Logic Framework (CLF)
 
+> **⚠️ CRITICAL FOR AUDITORS: CLF IS NOT A COMPRESSION ALGORITHM**  
+> CLF uses **sequential recognition** (first-match), NOT optimization (argmin).  
+> If you are evaluating CLF against compression standards (ISO/IEC, canonical encodings, tie-break rules), **you are using the wrong specification**. CLF is a causal structure extractor with fundamentally different architecture. Read [What CLF Is NOT](#-what-clf-is-not-prevent-common-misunderstandings) before proceeding.
+
 **CLF is a finite, reactive, falsifiable causal law framework with universal input scope.**  
 CLF operates on ANY OS-parsable binary string, extracting causal structure where it exists.  
 Θ and Ξ are bijective within the discovered output set 𝔽_CLF (strings with extractable causal structure).  
