@@ -1236,23 +1236,44 @@ This demonstrates CLF's **universal coverage over parsable inputs** while mainta
 
 ## Finite Law Vocabulary
 
-CLF's causal framework is finite and fixed.  
-It defines exactly nine causal families (D₁–D₉), each describing a distinct form of structural law:
+CLF's causal framework defines exactly **10 causal families** in fixed sequence order:
 
-- **D₁**: Constant law (all bytes identical)
-- **D₂**: Affine law (linear progression)
-- **D₃**: Periodic law (repeating pattern)
-- **D₄–D₈**: Compositional transforms (XOR, quadratic, mirror, rotational, recurrence)
-- **D₉**: Radial compositional closure (recursive ring structure)
+| Family | Name | Structure | Parameters |
+|--------|------|-----------|------------|
+| D₁ | CONSTANT | All bytes identical | `{c: byte}` |
+| D₂ | AFFINE | Linear progression | `{s0: byte, delta: byte}` |
+| D₃ | PERIODIC | Repeating pattern | `{period: bytes}` |
+| D₄ | XOR_AFFINE | XOR with affine mask | `{s0: byte, delta: byte, x: byte}` |
+| D₅ | QUADRATIC | Quadratic sequence | `{a: byte, b: byte, c: byte}` |
+| D₆ | MIRROR | Symmetric around center | `{half: bytes}` |
+| D₇ | ROTATIONAL | Rotational structure | `{rotation_params}` |
+| D₈ | LCG | Linear congruential generator | `{seed: byte, a: byte, c: byte}` |
+| D₉ | RADIAL | Recursive ring composition | `{rings: [ring_seeds]}` |
+| D_DISCRETE_TABLE | IDENTITY | Discrete identity i → byte[i] | `{bytes: [byte]}` |
 
-These families are **fixed and bounded**.  
-Θ tests each input S against this finite vocabulary.
+**Recognition sequence:**
+```
+Θ(S) = first match in: D₁ → D₂ → D₃ → D₄ → D₅ → D₆ → D₇ → D₈ → D₉ → D_DISCRETE_TABLE
+```
 
-If no law matches, Θ returns Σ₀ (LawNotInstantiated).  
-This is an essential design property ensuring **scientific falsifiability**.
+**Key properties:**
+- **Families D₁–D₉**: Compressed representations (|params| ≪ n)
+- **D_DISCRETE_TABLE**: Universal fallback (|params| = n, always matches)
+- **Fixed and bounded**: No dynamic law synthesis or learning
+- **Sequential matching**: First successful recognition terminates
+
+**Implementation references:**
+- Recognition logic: [M4_recognition_SAMPLED.py](M4_recognition_SAMPLED.py)
+- Family definitions: Each D_k has corresponding `recognize_Dk()` function
+- D_DISCRETE_TABLE: Lines ~1625-1655 in M4_recognition_SAMPLED.py
+
+Θ tests each input S against this finite vocabulary in sequence order.
+
+If all D₁–D₉ fail to match, D_DISCRETE_TABLE provides universal coverage (always succeeds).  
+Therefore: Σ₀ occurs **only for non-existent inputs** (I/O errors, undefined streams), never for parsable strings.
 
 **No dynamic law synthesis occurs.**  
-Θ does not "create" or "learn" new laws — it tests against the pre-defined D₁–D₉ vocabulary.
+Θ does not "create" or "learn" new laws — it tests against the pre-defined 10-family vocabulary.
 
 ---
 
