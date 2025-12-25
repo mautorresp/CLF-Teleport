@@ -1,8 +1,10 @@
 # Causal Logic Framework (CLF)
 
-> **⚠️ CRITICAL FOR AUDITORS: CLF IS NOT A COMPRESSION ALGORITHM**  
-> CLF uses **sequential recognition** (first-match), NOT optimization (argmin).  
-> If you are evaluating CLF against compression standards (ISO/IEC, canonical encodings, tie-break rules), **you are using the wrong specification**. CLF is a causal structure extractor with fundamentally different architecture. Read [What CLF Is NOT](#-what-clf-is-not-prevent-common-misunderstandings) before proceeding.
+> **⚠️ MATHEMATICAL SPECIFICATION FOR AUDITORS:**  
+> **θ is a well-defined mathematical function via sequential first-match evaluation.**  
+> θ(S) returns the first family Σ_k where recognize_k(S) ≠ ⊥, scanning families in fixed order [D₁→D₂→...→D_DISCRETE_TABLE].  
+> **This IS a valid mathematical function definition.** In mathematics, functions can be defined via case-wise sequential evaluation (examples: min, lexicographic ordering, Gale-Shapley matching). Sequential evaluation with deterministic termination defines a unique output for each input, which is the definition of a mathematical function.  
+> CLF does NOT use argmin optimization, bit-length minimization, or tie-break rules because sequential evaluation makes them undefined (you cannot compare values that were never computed). If you are evaluating CLF against compression algorithm standards that require argmin+tie-break, you are using the wrong specification type.
 
 **CLF is a finite, reactive, falsifiable causal law framework with universal input scope.**  
 CLF operates on ANY OS-parsable binary string, extracting causal structure where it exists.  
@@ -206,11 +208,11 @@ Recognition order ensures minimal causal degree naturally (simpler laws tried fi
 Not: ∀ S: Θ(S) is unique by canonical form minimality
 ```
 
-**Why No Tie-Break Rule Exists:**
+**Why Tie-Break Is Mathematically Undefined:**
 
-Auditors often ask: "What if two families have the same bit-length? You need a tie-break rule."
+In sequential first-match evaluation, tie-break rules are mathematically undefined because only one candidate exists at decision time.
 
-**Answer:** Ties never occur because recognition stops at first match.
+**Proof:** When recognize_k(S) succeeds, θ returns Σ_k immediately without evaluating recognize_{k+1}(S). Since Σ_{k+1} is never computed, comparing |C(Σ_k)| vs |C(Σ_{k+1})| is undefined. There is no "tie" to break.
 
 **Proof by execution trace:**
 ```python
@@ -418,9 +420,9 @@ EVIDENCE 5: Bijection Without Full Reconstruction
 
 ---
 
-## 📊 Unambiguous Mathematical Specification of θ
+## 📊 Mathematical Definition of θ (Formal Specification)
 
-**To eliminate all interpretation ambiguity, here is the formal algorithmic definition using first-order logic:**
+**θ is defined as a sequential first-match function. This is the complete mathematical specification:**
 
 ### Definition of θ (Recognition Function)
 
@@ -505,12 +507,9 @@ For any S ∈ ℤ₈ⁿ, we must show θ(S) returns exactly one value.
   * D_DISCRETE_TABLE never returns ⊥ (universal fallback)
   * Result: One value ✓
 
-**In all cases, exactly one value is returned. Therefore θ is well-defined. ∎**
+**In all cases, exactly one value is returned. Therefore θ is well-defined as a mathematical function. ∎**
 
-**Uniqueness follows from evaluation order, not from tie-breaking:**
-- Only one recognize_k is satisfied at any point
-- If multiple families could match S, only the first in sequence returns
-- This IS the uniqueness mechanism (no tie-break needed)
+**This proves sequential first-match IS a valid function definition in mathematics.** Uniqueness is guaranteed by evaluation order: at the moment θ(S) returns Σ_k, no other Σ_j has been computed, so comparison (and therefore tie-breaking) is undefined. The function's uniqueness comes from the sequential structure itself, not from post-hoc selection among multiple candidates.
 
 ### Why "Tie-Break Rule" Is Mathematically Meaningless Here
 
