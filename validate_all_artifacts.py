@@ -33,6 +33,12 @@ def clf_signature(files: tuple[str, ...] = ("M4_recognition_SAMPLED.py", "M3_xi_
             sha.update(f"missing:{rel}".encode("utf-8"))
     return sha.hexdigest()[:12]
 
+print("═" * 80)
+print("CLF CAUSAL UNIFICATION VALIDATION")
+print("Domain: Reactive totality — lawful realizations discovered dynamically.")
+print("Note: Random or non-causal sequences may return Σ₀ (LawNotInstantiated).")
+print("═" * 80)
+
 # --- CLF Coherence Utility ---
 def simplify_meta(obj):
     """
@@ -116,16 +122,12 @@ def validate_file(filepath: Path) -> dict:
         
         status = seed1.get("params", {}).get("status", "")
         if status == "Σ₀":
-            print(f"⚠️  {filepath.name}: Θ(S) produced Σ₀ (LawNotInstantiated).")
-            print("    → File outside recognized causal families (no closure law D₁–D₉).")
-            # --- Reactive Ontology Reporting ---
-            print(f"🌱 Reactive potential: {filepath.name} not yet instantiated under current ℒ(t).")
-            # --- End Reactive Ontology Reporting ---
+            print(f"⚠️ Non-lawful realization: Θ(S) returned Σ₀ (outside current 𝔽_CLF).")
+            print(f"    {filepath.name} does not satisfy finite causal closure (D₁–D₉).")
+            print(f"    → Falsifiability boundary detected.")
         else:
-            print(f"✅ {filepath.name}: Lawful causal realization (family: {family}, meta: {meta}).")
-            # --- Reactive Ontology Reporting ---
-            print(f"🌐 Reactive totality: {filepath.name} lawful under current ℒ(t).")
-            # --- End Reactive Ontology Reporting ---
+            print(f"✅ Lawful realization: Θ(S) ∈ 𝔽_CLF (recognized causal law).")
+            print(f"    {filepath.name}: {family}, meta: {meta}")
         
         # --- Reflexive Self-Report (read-only) ---
         if isinstance(seed1, dict):
@@ -285,6 +287,9 @@ def main():
     print("╔" + "="*78 + "╗")
     print("║" + " "*20 + "CLF CAUSAL UNIFICATION VALIDATION" + " "*25 + "║")
     print("║" + " "*78 + "║")
+    print("║  Domain: Reactive totality — lawful realizations discovered dynamically" + " "*4 + "║")
+    print("║  Note: Random or non-causal sequences may return Σ₀ (LawNotInstantiated)" + " "*4 + "║")
+    print("║" + " "*78 + "║")
     print("║  Testing: θ(S) recognition, idempotence, bijection" + " "*24 + "║")
     print("╚" + "="*78 + "╝")
     
@@ -408,6 +413,21 @@ def main():
     print("  Limit-causal families (D9_RADIAL): ~200B seed (~15–20 causal laws)")
     print("  Discrete structures: ~20B seed (minimal causal specification)")
     print("  Metrics reflect structural dimensionality, not encoded byte length.\n")
+    
+    # --- Falsifiability Summary ---
+    lawful_count = sum(1 for r in results if r.get("theta_success") and r.get("seed1", {}).get("params", {}).get("status") != "Σ₀")
+    sigma0_count = sum(1 for r in results if r.get("seed1", {}).get("params", {}).get("status") == "Σ₀")
+    
+    print("═══════════════════════════════════════════════════════════════")
+    print("CLF DOMAIN SUMMARY (Falsifiability Report)")
+    print(f"  Lawful realizations (Θ(S) ∈ 𝔽_CLF): {lawful_count}")
+    print(f"  Non-lawful (Θ(S) = Σ₀): {sigma0_count}")
+    if sigma0_count == 0:
+        print("  ✅ Current ℒ_CLF is total over tested corpus (empirical success).")
+    else:
+        print("  ⚠️ Σ₀ cases found — extend ℒ_CLF or accept domain limit.")
+    print("═══════════════════════════════════════════════════════════════\n")
+    # --- End Falsifiability Summary ---
     
     # Final verdict
     if theta_success == total and bijection_ok == total:
