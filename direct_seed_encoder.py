@@ -271,6 +271,11 @@ def encode_seed_direct(theta_result: Dict[str, Any]) -> bytes:
         meta = params.get('meta') or params.get('meta_law')
         sampled = bool(params.get('sampled', False))
         completion = (params.get('completion') or 'AUTO').upper()
+
+        # If a universal meta-law carries the ring_laws map (common for limit-closure),
+        # fall back to that so encoding remains seed-complete.
+        if (not ring_laws) and isinstance(meta, dict) and isinstance(meta.get('ring_laws'), dict):
+            ring_laws = meta.get('ring_laws')
         
         result = _encode_header(0x09, n) + struct.pack('>I', int(center) & 0xFFFFFFFF)
 
@@ -316,6 +321,11 @@ def encode_seed_direct(theta_result: Dict[str, Any]) -> bytes:
                 # [meta_id:1][base_s0:1][gradient_s0:1][delta:1]
                 result += b'\x01'
                 result += struct.pack('BBB', int(meta['base_s0']) & 0xFF, int(meta['gradient_s0']) & 0xFF, int(meta['delta']) & 0xFF)
+            elif meta_type == 'D9_LIMIT_CAUSAL_CLOSURE':
+                # [meta_id:1]
+                # Ring laws are serialized in the standard D9 ring_laws section.
+                # radii_defined is derived from the encoded radii.
+                result += b'\x03'
             elif meta_type == 'D9_LEFT_RIGHT_SEEDS':
                 # [meta_id:1][len(left):uvarint][left_seed_bytes][len(right):uvarint][right_seed_bytes]
                 left_seed = meta.get('left_seed')
@@ -661,6 +671,12 @@ def decode_seed_direct(seed: bytes) -> Dict[str, Any]:
                         'left_seed': left_seed,
                         'right_seed': right_seed,
                     }
+                elif meta_id == 0x03:
+                    # D9 limit-closure meta-law: ring_laws/radii are provided by the
+                    # standard D9 ring_laws section, so no extra payload is needed here.
+                    meta = {
+                        'type': 'D9_LIMIT_CAUSAL_CLOSURE',
+                    }
                 else:
                     raise ValueError(f"Unknown D9 meta-law id: {meta_id}")
 
@@ -703,6 +719,11 @@ def decode_seed_direct(seed: bytes) -> Dict[str, Any]:
                     pos += len(ring_seed_bytes)
             else:
                 raise ValueError(f"Unknown D9 rings_mode: {rings_mode}")
+
+            # If limit-closure meta-law is present, attach decoded rings to meta.
+            if isinstance(meta, dict) and meta.get('type') == 'D9_LIMIT_CAUSAL_CLOSURE':
+                meta['ring_laws'] = ring_laws
+                meta['radii_defined'] = sorted(ring_laws.keys())
 
             out_params = {
                 'center': center,

@@ -4332,6 +4332,18 @@ Thus, **CLF's totality is reflexive, not cumulative**:
 This definition resolves prior quantifier inversion issues:  
 Θ is singular, self-updating, and complete in its local causal closure.
 
+## Implementation Traceability
+
+Each validation run records an **implementation signature** derived from the
+Θ ([M4_recognition_SAMPLED.py](M4_recognition_SAMPLED.py)) and Ξ ([M3_xi_projected.py](M3_xi_projected.py)) modules:
+
+\[
+	ext{signature} = \text{SHA256}(\Theta\ \|\ \Xi)[:12]
+\]
+
+This signature anchors results to a reproducible source snapshot for audit traceability.
+It does not imply immutability of causal laws or restrict reflexive ℒ\_local instantiation.
+
 ## Causal Family Coherence
 
 Each CLF causal family (D1–D9) defines a distinct, reflexively complete
@@ -4367,6 +4379,50 @@ The validation suite measures the **meta-law dimensionality**
 This empirical coherence confirms that CLF's reflexive totality
 is internally consistent and causally bounded — without invoking
 any synthetic or external operators.
+
+## Validation Tiers
+
+CLF maintains a two-tier validation strategy:
+
+- **Tier 1 (default):** Sampled bijection check (O(1) per artifact) for routine verification.
+- **Tier 2 (opt-in):** Full reconstruction proof (O(n)) for select artifacts using the dedicated
+  validator script [validate_clf_full_reconstruction.py](validate_clf_full_reconstruction.py).
+
+Both tiers operate strictly within the finite causal family set (D1–D9).
+
+## Seed Size Definition
+
+Structural seed size is measured as the encoded length of the causal seed:
+
+\[
+|\Theta(S)|_{seed} = \text{len}(\text{encode\_seed\_direct}(\Theta(S)))\ \text{bytes}
+\]
+
+This measures causal dimensionality (law structure), not entropy compression.
+
+## Falsifiability Criterion
+
+CLF remains empirically falsifiable:
+
+\[
+\exists S:\ \Theta(S)=\Sigma_0 \Rightarrow \text{CLF incomplete.}
+\]
+
+Validation reports the observed count of Σ₀ outputs for the tested corpus.
+
+## Information-Theory Boundary
+
+CLF operates pre-symbolically. Shannon entropy $H(X)$ and Kolmogorov complexity $K(S)$
+apply only after parsing/representation.
+
+The invariant reported by CLF validation is structural causality:
+
+\[
+\dim_{causal}(\Theta(S)) \le 9,\quad S \in \mathbb{F}_{CLF}
+\]
+
+Seed-size and reduction-ratio metrics indicate law-recognition parsimony under CLF’s
+ontology; they are not claims of Shannon-style data compression.
 
 ### 6. Theorem (Existence Lemma)
 

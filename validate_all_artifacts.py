@@ -11,9 +11,27 @@ Tests:
 
 import os
 import sys
+import hashlib
 from pathlib import Path
 from M4_recognition_SAMPLED import BinaryStringSampler, theta_sampled
 from M3_xi_projected import Xi_projected
+from direct_seed_encoder import encode_seed_direct
+
+
+def clf_signature(files: tuple[str, ...] = ("M4_recognition_SAMPLED.py", "M3_xi_projected.py")) -> str:
+    """Return short SHA-256 digest across Θ and Ξ sources for audit traceability.
+
+    Uses the local workspace file contents (source snapshot), not a compiled binary.
+    """
+    base_dir = Path(__file__).resolve().parent
+    sha = hashlib.sha256()
+    for rel in files:
+        p = base_dir / rel
+        if p.exists():
+            sha.update(p.read_bytes())
+        else:
+            sha.update(f"missing:{rel}".encode("utf-8"))
+    return sha.hexdigest()[:12]
 
 # --- CLF Coherence Utility ---
 def simplify_meta(obj):
@@ -47,7 +65,8 @@ def validate_file(filepath: Path) -> dict:
         'family': None,
         'idempotence': False,
         'bijection_sample': False,
-        'error': None
+        'error': None,
+        'meta': {},
     }
     
     try:
@@ -59,12 +78,15 @@ def validate_file(filepath: Path) -> dict:
         result['family'] = seed1['params'].get('family', 'UNKNOWN')
         result['has_meta'] = 'meta' in seed1['params']
         
-        # Calculate seed size
+        # Canonical seed-size metric (structural, encoder-derived)
         try:
             seed_bytes = encode_seed_direct(seed1)
             result['seed_size'] = len(seed_bytes)
-        except Exception:
-            # Fallback: estimate seed size from structure for unsupported types
+            result['meta']['seed_size_bytes'] = result['seed_size']
+            print(f"🔹 Structural seed size: {result['seed_size']} B")
+        except Exception as e:
+            print(f"📊 Seed size metric unavailable (fallback estimator): {e}")
+            # Fallback: estimate seed size from structure
             # Estimator Notes:
             # - 25B  → D2 / parametric (finite affine delta)
             # - 200B → D9 / limit-causal closure (≈ 15–20 ring laws × 2 params each)
@@ -104,38 +126,42 @@ def validate_file(filepath: Path) -> dict:
             # --- Reactive Ontology Reporting ---
             print(f"🌐 Reactive totality: {filepath.name} lawful under current ℒ(t).")
             # --- End Reactive Ontology Reporting ---
-            print(f"🌐 Reactive totality: {filepath.name} lawful under current ℒ(t).")
-            # --- End Reactive Ontology Reporting ---
         
         # --- Reflexive Self-Report (read-only) ---
         if isinstance(seed1, dict):
             # Check for meta in the right location (params.meta for D9, or top-level meta)
-            meta = None
+            meta_obj = None
             if "params" in seed1 and "meta" in seed1["params"]:
-                meta = seed1["params"]["meta"]
+                meta_obj = seed1["params"]["meta"]
             elif "meta" in seed1:
-                meta = seed1["meta"]
-            
-            if meta:
-                mode = meta.get("ontological_mode", "")
-                rcache = meta.get("reflexive_cache", {})
+                meta_obj = seed1["meta"]
+
+            if meta_obj:
+                mode = meta_obj.get("ontological_mode", "")
+                rcache = meta_obj.get("reflexive_cache", {})
                 if mode == "reflexive_local":
                     law_id = rcache.get("recognized_family", "—")
                     print(f"🧩 Reflexive Θ active for family: {law_id}")
                     print(f"   Local ℒ scope size: {len(rcache)}  (transient, per recognition)")
         # --- End Reflexive Self-Report ---
-                # --- CLF Causal Family Coherence Trace ---
+
+        # --- CLF Causal Family Coherence Trace (instrumentation only) ---
         if isinstance(seed1, dict):
             family = seed1.get("family", "—")
-            meta = seed1.get("params", {}).get("meta", {})
-            simplified_meta = simplify_meta(meta)
-            key_count = len(simplified_meta)
+            meta_obj = seed1.get("params", {}).get("meta", {})
+            meta_type = meta_obj.get("type", "—") if isinstance(meta_obj, dict) else "—"
+            simplified_meta = simplify_meta(meta_obj)
+            key_count = len(simplified_meta) if isinstance(simplified_meta, dict) else 0
 
-            print(f"🔁 Causal family coherence check: {family}")
+            group = f"{family}:{meta_type}" if meta_type != "—" else family
+
+            print(f"🔁 Causal family coherence check: {group}")
             print(f"   Simplified meta key count: {key_count}")
 
-            seed1.setdefault("meta", {})["coherence_probe"] = {
+            result["meta"]["coherence_probe"] = {
                 "family": family,
+                "meta_type": meta_type,
+                "group": group,
                 "key_count": key_count,
             }
         # --- End CLF Causal Family Coherence Trace ---
@@ -255,6 +281,7 @@ def main():
         print(f"❌ Directory not found: {test_dir}")
         return 1
     
+    print(f"Θ/Ξ implementation signature: {clf_signature()}")
     print("╔" + "="*78 + "╗")
     print("║" + " "*20 + "CLF CAUSAL UNIFICATION VALIDATION" + " "*25 + "║")
     print("║" + " "*78 + "║")
@@ -328,6 +355,18 @@ def main():
     print("  → 𝔽_CLF(t+1) = 𝔽_CLF(t) ∪ {S | Θ_{t+1}(S) ≠ Σ₀}")
     print("  Universal coverage guaranteed by reactive ontology.")
     print("══════════════════════════════════════════════════════════════════════\n")
+
+    # --- CLF Falsifiability Summary (Σ₀ count; instrumentation only) ---
+    print("═══════════════════════════════════════════════════════════════════")
+    print("CLF FALSIFIABILITY SUMMARY")
+    print(f"  Lawful realizations (Θ(S) ≠ Σ₀): {lawful}")
+    print(f"  Non-lawful realizations (Θ(S) = Σ₀): {nonlawful}")
+    if nonlawful == 0:
+        print("  ✅ No Σ₀ cases observed — Θ total on tested domain.")
+    else:
+        print("  📊 Σ₀ cases present — extend ℒ(meta) coverage if consistent.")
+    print("═══════════════════════════════════════════════════════════════════\n")
+    # --- End CLF Falsifiability Summary ---
     
     # --- Reflexive Domain Summary ---
     print("═══════════════════════════════════════════════════════════════")
@@ -346,7 +385,7 @@ def main():
             if not isinstance(entry, dict):
                 continue
             probe = entry.get("meta", {}).get("coherence_probe", {})
-            family = probe.get("family")
+            family = probe.get("group") or probe.get("family")
             count = probe.get("key_count")
             if family:
                 coherence_index.setdefault(family, []).append(count)
