@@ -147,6 +147,64 @@ Recognition order ensures minimal causal degree naturally (simpler laws tried fi
 Not: ∀ S: Θ(S) is unique by canonical form minimality
 ```
 
+**Why No Tie-Break Rule Exists:**
+
+Auditors often ask: "What if two families have the same bit-length? You need a tie-break rule."
+
+**Answer:** Ties never occur because recognition stops at first match.
+
+**Proof by execution trace:**
+```python
+def Θ(S):
+    if D1_recognizes(S):  # Check D₁ CONSTANT
+        return D1_seed      # RETURN IMMEDIATELY - D₂ never checked
+    if D2_recognizes(S):  # Only reached if D₁ failed
+        return D2_seed      # RETURN IMMEDIATELY - D₅ never checked
+    if D5_recognizes(S):  # Only reached if D₁ and D₂ failed
+        return D5_seed
+    # ... etc
+```
+
+**Key insight:** 
+- D₁ and D₂ are **never both evaluated** for the same S
+- "Tie" would require comparing D₁_seed vs D₂_seed
+- But D₂ is only tried if D₁ returns None (no match)
+- Therefore: No comparison → No candidates to tie → No tie-break needed
+
+**Contrast with compression (why they need tie-breaks):**
+```python
+def compress(S):
+    # Compression evaluates ALL families
+    candidates = [D1_encode(S), D2_encode(S), ..., D9_encode(S)]
+    candidates = [c for c in candidates if c is not None]
+    # Now have multiple candidates - need tie-break
+    shortest = min(candidates, key=bit_length)
+    if multiple_shortest:  # Tie occurred
+        return lexmin(shortest)  # Need tie-break rule
+```
+
+**CLF never executes the "if multiple_shortest" branch because it never collects multiple candidates.**
+
+**Mathematical formulation:**
+```
+Compression: θ(S) = argmin_{k ∈ {1..9}} |encode(D_k_recognize(S))|
+             ↑ Evaluates all k, then compares
+             ↑ Ties possible when |encode(D_i)| = |encode(D_j)|
+
+CLF:         θ(S) = D_k where k = min{k' : D_k'_recognizes(S) ≠ None}
+             ↑ Returns first k', never evaluates k' + 1
+             ↑ Ties impossible (only one value returned)
+```
+
+**Validation evidence:** Run `produce_mechanism_evidence.py` test 1
+```
+Input: 100 bytes, all value 42 (recognizable as D₁ or D₂)
+Recognized family: D1
+✓ D2_AFFINE never attempted (no argmin selection)
+```
+
+**Conclusion:** CLF doesn't need a tie-break rule because the algorithm structure prevents ties from occurring. Requesting a tie-break rule indicates misunderstanding CLF as compression (which evaluates all families then compares).
+
 ### Bijection Verification: Generative Functions, Not Full Scans
 
 **How CLF verifies Ξ(Θ(S)) = S without scanning all n bytes:**
