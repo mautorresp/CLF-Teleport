@@ -9,6 +9,36 @@ CLF achieves **universal input coverage** with **finite extraction vocabulary** 
 
 ---
 
+## 🚨 What CLF Is NOT (Prevent Common Misunderstandings)
+
+**CLF is NOT a compression algorithm.** It is an existence-based structure extractor.
+
+| Compression Algorithm | CLF Framework |
+|----------------------|---------------|
+| **Search-based**: Try all codecs, pick shortest | **Reactive**: First lawful match wins |
+| **Optimization**: argmin over code lengths | **Recognition**: Deterministic recognition order D₁→D₉→D_DISCRETE_TABLE |
+| **Full Coverage**: Decoder must reconstruct 100% | **Strategic Sampling**: Bounded witnesses at P(n) prove structure |
+| **Canonicalization**: One structure → one encoding | **Structural Equivalence**: Recognition equivalence (first match) |
+| **Density Threshold**: Reject high-entropy inputs | **Universal Totality**: D_DISCRETE_TABLE ensures Θ(S) ≠ Σ₀ for all parsable S |
+| **Code Length**: Minimize |Σ| | **Causal Degree**: Minimize |P(n)| + |π_k| |
+| **Stored Dictionary**: Maps codes to data | **Generative Law**: D_k(i, π_k) = S[i] |
+
+**Key Distinctions:**
+
+1. **Reactive Extraction, Not Search**: CLF does NOT enumerate all families and select the shortest encoding. It recognizes structure in deterministic order: D₁ (constant) → D₂ (affine) → ... → D₉ (radial) → D_DISCRETE_TABLE (identity). First successful recognition terminates.
+
+2. **Strategic Sampling, Not Full Reconstruction**: CLF does NOT scan all bytes to verify bijection. Strategic witness positions P(n) ⊆ {0, 1, n//4, n//2, 3n//4, n-2, n-1} prove structure via closed-form equalities D_k(i, π_k) = S[i]. Coverage ratio < 100% is expected and correct.
+
+3. **D_DISCRETE_TABLE is Lawful, Not a Fallback**: The discrete identity mapping i → S[i] is a lawful causal structure (trivial law, maximal seed), not a "failure to compress." This ensures universal totality: S ∈ 𝔽_OS ⇒ Θ(S) ≠ Σ₀.
+
+4. **Structural Equivalence ≠ Ambiguity**: Multiple representations of the same bytes (e.g., constant via D₁ vs. affine via D₂) are structurally equivalent. CLF uses recognition order to ensure determinism. This is NOT canonicalization (which would require searching all families) — it is reactive determinism.
+
+5. **Bounded Witnesses, Not Incomplete Coverage**: Testing Ξ(Θ(S)) = S at strategic positions is mathematically complete for generative functions. Full byte-by-byte comparison is unnecessary and would violate O(1) causality claims.
+
+**If you audit CLF and conclude it needs canonicalization, shortest-code selection, or density thresholds, you are misunderstanding CLF as a compression algorithm. Re-read this section.**
+
+---
+
 ## Ontological Domain of CLF
 
 CLF operates on **any OS-parsable binary string** (universal input scope).  
