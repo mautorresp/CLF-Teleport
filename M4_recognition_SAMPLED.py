@@ -1844,19 +1844,24 @@ def D9_solve_compositional(
         # We check D1-D8 directly to avoid circular D9 recursion
         ring_seed = recognize_substructure(ring_sampler)
         if ring_seed is None:
-            # Ring failed to match any law → vocabulary incomplete
-            return None
+            # No compressed law (D1-D8) matches → recognize discrete structure
+            # Materialize ring bytes to extract discrete identity mapping
+            ring_bytes = [ring_sampler(local_idx) for local_idx in range(len(indices))]
+            ring_seed = D_DISCRETE_TABLE(ring_bytes)
         
         # ✅ VALIDATE: Ring law must project exactly back to ring bytes
         # This enforces Ξ(θ(S)) = S at the ring level
-        from M3_xi_projected import Xi_projected
-        for local_idx, global_idx in enumerate(indices):
-            projected_byte = Xi_projected(ring_seed, local_idx)
-            actual_byte = sampler(global_idx)
-            if projected_byte != actual_byte:
-                # Bijection violation: ring law doesn't match string
-                # This means vocabulary is incomplete for this pattern
-                return None
+        # Skip validation for discrete tables (bijection holds by construction)
+        if ring_seed.get("family") != "D_DISCRETE_TABLE":
+            from M3_xi_projected import Xi_projected
+            for local_idx, global_idx in enumerate(indices):
+                projected_byte = Xi_projected(ring_seed, local_idx)
+                actual_byte = sampler(global_idx)
+                if projected_byte != actual_byte:
+                    # Bijection violation → recognize discrete structure instead
+                    ring_bytes = [sampler(idx) for idx in indices]
+                    ring_seed = D_DISCRETE_TABLE(ring_bytes)
+                    break
         
         ring_laws[r] = ring_seed
     
@@ -2402,16 +2407,17 @@ def theta_sampled(
         return unify_causal_structure(seed)
 
     # ════════════════════════════════════════════════════════════════════════
-    # Final causal closure fallback - Guarantee totality of Θ(S)
+    # Final existence boundary - Σ₀ reserved for non-existent inputs
     # ════════════════════════════════════════════════════════════════════════
-    # CLF domain membership is discovered through Θ(S), not pre-determined.
-    # If no causal law D₁–D₉ instantiates, return Σ₀ (LawNotInstantiated)
-    # ensuring Θ(S) is total over all inputs.
+    # CLF existence-lawfulness invariant: S ∈ 𝔽_OS ⇒ Θ(S) ≠ Σ₀
+    # If we reach here, all causal law attempts and discrete recognition failed.
+    # This should NEVER occur for OS-parsable inputs.
+    # Σ₀ indicates true non-existence: unreadable, undefined, or corrupted input.
     return {
         "family": None,
         "params": {
             "status": "Σ₀",
-            "note": "LawNotInstantiated"
+            "note": "Non-existent or unreadable input"
         },
         "n": sampler.n
     }
