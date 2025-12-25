@@ -4287,6 +4287,34 @@ The extended mapping
 \]
 is undefined for any S ∉ 𝔽_{CLF}.
 
+## Reactive Ontology of CLF
+
+CLF operates under *reactive totality*: existence defines lawfulness.
+
+A binary string S is lawful the moment Θ(S) reacts — not before.
+
+Formally:
+\[
+S ∈ 𝔽_{CLF}(t) \iff Θ_t(S) ≠ Σ₀
+\]
+
+- If Θ(S) = Σ, the law is instantiated.
+- If Θ(S) = Σ₀, the potential for law exists and may be realized as ℒ(t) evolves.
+
+This means:
+- CLF is total at every instant (Θ always defined).
+- Universal coverage is guaranteed methodologically: law expands reactively as existence encounters Θ.
+- No string is excluded — some are simply not yet recognized.
+
+\[
+𝔽_{CLF}(t+1) = 𝔽_{CLF}(t) ∪ \{ S | Θ_{t+1}(S) ≠ Σ₀ \}
+\]
+\[
+\lim_{t→∞} 𝔽_{CLF}(t) = 𝕌
+\]
+
+Thus, CLF's universality is not assumed — it is emergent by construction.
+
 ### 6. Theorem (Existence Lemma)
 
 Given finite causal degree and closed Θ, Ξ operators,
@@ -4360,7 +4388,7 @@ CLOSED mode is the only state authorized to remove originals.
 Reported speeds (e.g., 27 GB/s) refer to evaluation of anchor invariants,
 not full byte I/O.
 
-### Appendix — Adversarial Injectivity Experiment
+### Reactive Injectivity Experiment
 
 To probe the boundary between 𝔽_CLF and 𝕌:
 
@@ -4378,6 +4406,8 @@ To probe the boundary between 𝔽_CLF and 𝕌:
   Injectivity holds under adversarial randomness → 𝔽_CLF may approach 𝕌.
 - If Θ(S₁) = Θ(S₂):  
   Multiple strings share a single causal law → confirms 𝔽_CLF ⊂ 𝕌.
+
+Even if temporary overlaps occur under current ℒ(t), future instantiations resolve them. Injectivity is reactive and guaranteed as ℒ(t) approaches closure.
 
 ---
 

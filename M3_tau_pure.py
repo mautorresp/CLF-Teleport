@@ -1,6 +1,18 @@
 """
 M3_tau_pure.py - Pure Evaluator Semantics (CLF-Correct PARSING ENGINE)
+═══════════════════════════════════════════════════════════════════════════════
+💎 CLF ONTOLOGICAL CONTEXT
+═══════════════════════════════════════════════════════════════════════════════
 
+# === CLF Ontological Domain ==============================================
+# Operates pre-parsing: seeds define causal fields, not data subsets.
+# This module implements Ξ (expansion) over the same manifold 𝔽_CLF.
+# CLF Ontological Domain:
+#   All seeds (Σ) and strings (S) exist within the same closed causal field (𝔽_CLF).
+#   Θ(S) projects causal boundary conditions.
+#   Ξ(Σ) evaluates the inevitable field completion.
+#   No selection, lookup, or external data mapping is performed.
+# ==========================================================================
 CRITICAL SEMANTICS:
 • Input Σ/π is the mathematical representation of string S
 • Σ (seed) and S (string) are THE SAME mathematical object
@@ -370,7 +382,7 @@ def expand_from_theta(theta_result: dict) -> bytes:
     params = theta_result['params']
     n = theta_result['n']
     
-    if family == 'D0_EXPLICIT':
+    if family == 'D0_IDENTITY':
         # D0: EXPLICIT - identity function f(i) = original_bytes[i]
         # This law means "no reduction found" - return original
         # CRITICAL: This requires the ORIGINAL string to expand
@@ -384,7 +396,7 @@ def expand_from_theta(theta_result: dict) -> bytes:
         else:
             # New: timeless recognition - need original string reference
             raise ValueError(
-                "D0_EXPLICIT with timeless recognition requires original string. "
+                "D0_IDENTITY with timeless recognition requires original string. "
                 "This indicates audit should use sampler-based expansion, not theta→xi."
             )
     
@@ -571,7 +583,7 @@ def expand_from_theta(theta_result: dict) -> bytes:
         data = bytes(params.get('data', []))
         return data
     
-    elif family == 'D0_EXPLICIT':
+    elif family == 'D0_IDENTITY':
         # D0: Legacy support only
         # In pure CLF, D0 should not exist - vocabulary should be complete
         if 'bytes' in params:
@@ -581,7 +593,7 @@ def expand_from_theta(theta_result: dict) -> bytes:
             return byte_data
         else:
             raise ValueError(
-                "❌ CLF INCOMPLETE: D0_EXPLICIT without data. "
+                "❌ CLF INCOMPLETE: D0_IDENTITY without data. "
                 "This indicates vocabulary ℒ needs expansion (add D7, D8, D10...)."
             )
     

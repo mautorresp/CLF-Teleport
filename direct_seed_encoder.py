@@ -145,7 +145,7 @@ def encode_seed_direct(theta_result: Dict[str, Any]) -> bytes:
     params = theta_result['params']
     n = int(theta_result['n'])
     
-    if family == 'D0_EXPLICIT':
+    if family == 'D0_IDENTITY':
         # D0 EXPLICIT: [0x00][n:4][bytes:n]
         # The identity function f(i)=byte_i extracted from existence
         # INSTANT: bytes are already in correct format (O(1))
@@ -254,7 +254,7 @@ def encode_seed_direct(theta_result: Dict[str, Any]) -> bytes:
     # ================================================================
     # CLF CAUSAL CONTEXT: D9_RADIAL
     #
-    # Encoding stores symbolic causal structure {center, {r → Σ_r}}, NEVER raw bytes.
+    # Encoding stores symbolic causal structure {center, {r → Σ_r}}, NEVER manifestation data.
     # Each Σ_r is recursively encoded via encode_seed_direct (closure of ℒ).
     #
     # IMPORTANT:
@@ -478,7 +478,7 @@ def decode_seed_direct(seed: bytes) -> Dict[str, Any]:
     if law_id == 0x00:
         # D0: EXPLICIT - identity function
         bytes_data = list(seed[params_start:params_start+n])
-        return {'family': 'D0_EXPLICIT', 'params': {'bytes': bytes_data}, 'n': n}
+        return {'family': 'D0_IDENTITY', 'params': {'bytes': bytes_data}, 'n': n}
     
     elif law_id == 0x01:
         # D1: CONST

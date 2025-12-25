@@ -571,6 +571,9 @@ USE_STRICT_THETA = True
 # CLF Vocabulary Completion Exception
 # ============================================================================
 
+# Error Element Σ₀ - Represents undefined causal law
+SIGMA_NULL = {"status": "UNDEFINED", "family": "SIGMA_NULL", "error": "No valid causal law"}
+
 class LawNotInstantiatedError(Exception):
     """
     Raised when θ(S) identifies a law that violates |Σ_pure| < |S|.
@@ -1126,9 +1129,9 @@ def Sigma_star(S, save_to_file: bool = True, filename_prefix: str = None, verify
 
         # Forbid payload-carrying / explicit seeds in timeless/instant-deduction.
         # These represent storing the manifestation (effect) rather than a lawful cause.
-        if family in {'D0_EXPLICIT', 'D11_RAW'}:
+        if family in {'D0_IDENTITY', 'D11_RAW'}:
             raise LawNotInstantiatedError(
-                f"Timeless alignment violation: forbidden explicit/raw family {family}"
+                f"Timeless alignment violation: forbidden identity/raw family {family}"
             )
 
         # Reject sampled seeds (witness-only) in timeless mode.

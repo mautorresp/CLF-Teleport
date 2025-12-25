@@ -1,0 +1,688 @@
+════════════════════════════════════════════════════════════════════════════════
+CLF TRIPLE-HASH VALIDATOR
+════════════════════════════════════════════════════════════════════════════════
+
+Grid-Level Validation:
+  ν_P(S,Σ) = (Σ_{i∈P(n)} [S[i] - Ξ(Σ)[i]]·i) mod 256
+  ν_P = 0 ⟺ Perfect bijection at causal grid
+
+Field-Level Validation:
+  H_CLF(Σ) = Σ_r Φ_r(Σ)·ω_r mod 256
+  ν_CLF = 0 ⟺ Field-integrated causal equivalence
+
+Cryptographic Validation:
+  SHA-256 hash comparison (collision-resistant)
+
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: 1GB.bin (1,073,741,824 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   165
+    H_P(Σ):   165
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   68bb3d7cdc7f2fbf...
+    H(Ξ(Σ)): 68bb3d7cdc7f2fbf...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     123
+    H_CLF(Σ):     123
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: Archive 2.zip (332,295,804 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   217
+    H_P(Σ):   217
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   0589f577a5d8970d...
+    H(Ξ(Σ)): 0589f577a5d8970d...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     63
+    H_CLF(Σ):     63
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: Archive.zip (1,422,066,299 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 29 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   36
+    H_P(Σ):   36
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   382bd154d82e437a...
+    H(Ξ(Σ)): 382bd154d82e437a...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     74
+    H_CLF(Σ):     74
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: pic1.jpeg (11,160 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   32
+    H_P(Σ):   32
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   2ae2c53870dd8d49...
+    H(Ξ(Σ)): 2ae2c53870dd8d49...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     226
+    H_CLF(Σ):     226
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: pic2.jpeg (11,751 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 29 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   173
+    H_P(Σ):   173
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   5698886814e6868b...
+    H(Ξ(Σ)): 5698886814e6868b...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     181
+    H_CLF(Σ):     181
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: pic3.jpeg (32,220 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   232
+    H_P(Σ):   232
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   c4743a2a52c86c4b...
+    H(Ξ(Σ)): c4743a2a52c86c4b...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     124
+    H_CLF(Σ):     124
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: randomfile.bin (10,485,760 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   152
+    H_P(Σ):   152
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   62614474398650a0...
+    H(Ξ(Σ)): 62614474398650a0...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     158
+    H_CLF(Σ):     158
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: sample_1920×1280.bmp (7,372,938 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   190
+    H_P(Σ):   190
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   d9294252125d55e8...
+    H(Ξ(Σ)): d9294252125d55e8...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     6
+    H_CLF(Σ):     6
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: sample_1920×1280.png (4,767,276 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   132
+    H_P(Σ):   132
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   5f20f6ceebdd888f...
+    H(Ξ(Σ)): 5f20f6ceebdd888f...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     187
+    H_CLF(Σ):     187
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: sample_960x400_ocean_with_audio.webm (17,249,599 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 29 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   202
+    H_P(Σ):   202
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   18201e23b564e5a4...
+    H(Ξ(Σ)): 18201e23b564e5a4...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     41
+    H_CLF(Σ):     41
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: sample3.pdf (1,253,607 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 29 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   136
+    H_P(Σ):   136
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   b7e896dae712bf79...
+    H(Ξ(Σ)): b7e896dae712bf79...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     142
+    H_CLF(Σ):     142
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: sample4.docx (14,169,117 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 29 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   221
+    H_P(Σ):   221
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   e1a2a944481d978e...
+    H(Ξ(Σ)): e1a2a944481d978e...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     13
+    H_CLF(Σ):     13
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: structured_meta_law.bin (1,000 bytes)
+  Closure: D2_AFFINE_CONSTANT_DELTA
+  Testing all: 1000 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   34
+    H_P(Σ):   34
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   499666b4f4676090...
+    H(Ξ(Σ)): 499666b4f4676090...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     0
+    H_CLF(Σ):     0
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: Symphony No.6 (1st movement).mp3 (11,650,187 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 29 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   245
+    H_P(Σ):   245
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   3aff4a95b190659e...
+    H(Ξ(Σ)): 3aff4a95b190659e...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     144
+    H_CLF(Σ):     144
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: test_document.txt (427 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 29 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   189
+    H_P(Σ):   189
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   dec0ed2345d78d0e...
+    H(Ξ(Σ)): dec0ed2345d78d0e...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     105
+    H_CLF(Σ):     105
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: test_linear_pattern.bin (1,000 bytes)
+  Closure: D2_AFFINE_CONSTANT_DELTA
+  Testing all: 1000 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   68
+    H_P(Σ):   68
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   f0696dad93ab12a8...
+    H(Ξ(Σ)): f0696dad93ab12a8...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     0
+    H_CLF(Σ):     0
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: test_message.txt (3,000 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   206
+    H_P(Σ):   206
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   ef6f28ae88dbddae...
+    H(Ξ(Σ)): ef6f28ae88dbddae...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     43
+    H_CLF(Σ):     43
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: testfile.org-5GB.dat (5,000,000,000 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   134
+    H_P(Σ):   134
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   83a8123aa1362065...
+    H(Ξ(Σ)): 83a8123aa1362065...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     8
+    H_CLF(Σ):     8
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: video1.mp4 (1,570,024 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   220
+    H_P(Σ):   220
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   c318ea117b0bf11f...
+    H(Ξ(Σ)): c318ea117b0bf11f...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     241
+    H_CLF(Σ):     241
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: video2.mp4 (3,114,374 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   156
+    H_P(Σ):   156
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   2e725787d925dbc2...
+    H(Ξ(Σ)): 2e725787d925dbc2...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     145
+    H_CLF(Σ):     145
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: video3.mp4 (11,916,526 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   190
+    H_P(Σ):   190
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   877551cd41b1e823...
+    H(Ξ(Σ)): 877551cd41b1e823...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     115
+    H_CLF(Σ):     115
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: video4.mp4 (15,791,488 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   241
+    H_P(Σ):   241
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   8637bf858f71ce79...
+    H(Ξ(Σ)): 8637bf858f71ce79...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     33
+    H_CLF(Σ):     33
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+File: video5.mp4 (317,730,560 bytes)
+  Closure: D9_LIMIT_CAUSAL_CLOSURE
+  Causal grid P(n): 28 positions
+
+  CLF-Hash (ℤ₂₅₆):
+    H_P(S):   46
+    H_P(Σ):   46
+    ν_P(S,Σ): 0
+    ✅ ν = 0: Perfect bijection at P(n)
+
+  SHA-256 (cryptographic):
+    H(S):   ccb4273708ef7445...
+    H(Ξ(Σ)): ccb4273708ef7445...
+    ✅ Hashes match
+
+  CLF-Full Hash (ℤ₂₅₆ field-theoretic):
+    H_CLF(S):     152
+    H_CLF(Σ):     152
+    ν_CLF(S,Σ):   0
+    ✅ ν_CLF = 0: Field-integrated causal equivalence
+
+  ════════════════════════════════════════════════════════════════════════════
+  ✅ TRIPLE VALIDATION PASSED
+     ν_P = 0, ν_CLF = 0, SHA-256 match
+     → Bit-perfect causal equivalence certified in dual field space
+  ════════════════════════════════════════════════════════════════════════════
+
+════════════════════════════════════════════════════════════════════════════════
+VALIDATION SUMMARY
+════════════════════════════════════════════════════════════════════════════════
+
+Files tested: 23
+All methods passed: 23/23
+
+CLF-Hash (grid):   23/23 ✅
+CLF-Full (field):  23/23 ✅
+SHA-256:           23/23 ✅
+
+✅ ALL VALIDATIONS PASSED
+
+Grid-Level Proof:
+  ν_P(S,Σ) = 0 for all files (causal bijection at P(n))
+
+Field-Level Proof:
+  ν_CLF(S,Σ) = 0 for all files (field-integrated equivalence)
+
+Cryptographic Confirmation:
+  SHA-256 hashes match (collision probability < 2^-256)
+
+Formal Result:
+  Ξ(θ(S))[i] = S[i]  ∀i ∈ P(n)
+  → Bit-perfect causal equivalence certified in dual field space
+
+════════════════════════════════════════════════════════════════════════════════

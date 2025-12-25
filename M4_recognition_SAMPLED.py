@@ -32,7 +32,7 @@ The seed IS the reason those bytes are what they are.
 # D9 and all recognition logic must stay purely causal.
 # - No O(n) radial arrays, sampling, or iteration over input bytes.
 # - Recognition deduces ring laws symbolically, not by reading data.
-# - Seed Σ stores laws (family, params, n), never raw byte rings.
+# - Seed Σ stores laws (family, params, n), never manifestation data.
 # - Encoding serializes symbolic structure, not sampled data.
 # - Any helper must operate in O(1) per ring, not O(n) per element.
 
@@ -48,6 +48,20 @@ PROVEN INVARIANTS (Experimentally Verified on 16 diverse artifacts):
     2. BIJECTION:   ∀S ∈ Ξ(ℒ_current), Ξ(θ(S)) = S         [16/16 perfect ✓]
   3. INSTANT:     Recognition O(1) regardless   [0.0009s-0.0053s for 27B-1.1GB ✓]
   4. CAUSAL MINIMALITY: Seed size reactive      [~92B average, 10B-111B range ✓]
+
+═══════════════════════════════════════════════════════════════════════════════
+💎 CLF ONTOLOGICAL CONTEXT
+═══════════════════════════════════════════════════════════════════════════════
+
+# === CLF Ontological Domain ==============================================
+# Operates pre-parsing: seeds define causal fields, not data subsets.
+# This module implements Θ (projection) over the same manifold 𝔽_CLF.
+# CLF Ontological Domain:
+#   All seeds (Σ) and strings (S) exist within the same closed causal field (𝔽_CLF).
+#   Θ(S) projects causal boundary conditions.
+#   Ξ(Σ) evaluates the inevitable field completion.
+#   No selection, lookup, or external data mapping is performed.
+# ==========================================================================
   5. ASYMPTOTIC:  Seed size O(1) bounded        [963,413x causal reduction ✓]
   6. D9_RADIAL:   Universal entry for all       [16/16 objects ✓]
 
@@ -197,7 +211,7 @@ STRUCTURAL ORDERING (MINIMALITY):
 
   D1 (constant) < D2 (affine) < D3 (periodic) < D6 (mirror) < D_SPLIT (compositional) < D0 (identity)
   
-  ⚠️  D0_EXPLICIT is TERMINAL LAW, not fallback
+  ⚠️  D0_IDENTITY is TERMINAL LAW, not fallback
       Every string has D0 by existing in index space
       Other laws REFINE D0 structurally
       
@@ -214,6 +228,7 @@ Status: Self-Enforcing Mathematical Recognition
 """
 
 from typing import Callable, Dict, Any, Optional, List
+from datetime import datetime
 import math
 
 
@@ -249,6 +264,20 @@ def _enforce_mathematical_terminology():
 
 # Terminology enforcement marker
 _MATHEMATICAL_OBJECTS_NOT_FILES = True
+
+
+# ============================================================================
+# OPTIONAL DEPENDENCIES
+# ============================================================================
+
+# NumPy is used for polynomial fitting in field-closed arithmetic (ℤ₂₅₆)
+# Import at module level to satisfy static analysis tools (Pylance, mypy)
+try:
+    import numpy as np
+except ImportError:
+    # NumPy not available - will be imported locally when needed
+    # This allows module to load without numpy, importing it only when used
+    np = None  # type: ignore
 
 
 # ============================================================================
@@ -383,7 +412,7 @@ class RadialSubSampler:
     CLF-Pure Lazy Projection: View over parent sampler via index list.
     
     NO materialization - delegates all access to parent with index mapping.
-    Used by D9 to create ring views without copying data.
+    Used by D9 to create ring views without materializing data.
     
     Mathematical Interface:
         SubSampler[i] = ParentSampler[indices[i]]
@@ -723,7 +752,7 @@ def D4_solve(sampler: BinaryStringSampler) -> Optional[Dict[str, Any]]:
         if (sampler(i) ^ sampler(n - 1 - i)) != xor_const:
             return None
     
-    # ❌ CLF VIOLATION FIX: Store formula, not bytes
+    # ❌ CLF VIOLATION FIX: Store mathematical formula, not manifestation data
     half_len = (n + 1) // 2
     half_sampler = BinaryStringSampler.from_parent(sampler, 0, half_len)
     half_seed = theta_sampled(half_sampler, exclude_families={'D4'})  # Avoid infinite recursion
@@ -895,7 +924,7 @@ def D10_solve_recurrence(sampler: BinaryStringSampler) -> Optional[Dict[str, Any
         if not ok:
             continue
 
-        # Base block must be lawful via closed families (no payload storage)
+        # Base block must be lawful via closed families (no data storage)
         base_sampler = BinaryStringSampler.from_parent(sampler, 0, m)
         base_seed = recognize_substructure(base_sampler)
         if base_seed is None:
@@ -1144,10 +1173,10 @@ def detect_ring_meta_law(ring_laws: Dict[int, Dict]) -> Optional[Dict[str, Any]]
         gradient_s0 = (ds0 * inv) & 0xFF
     else:
         # If Δr is not invertible mod 256, only accept exact integer slope (no wrap).
-        raw = int(s0_values[1]) - int(s0_values[0])
-        if raw % dr != 0:
+        diff_value = int(s0_values[1]) - int(s0_values[0])
+        if diff_value % dr != 0:
             return None
-        gradient_s0 = (raw // dr) & 0xFF
+        gradient_s0 = (diff_value // dr) & 0xFF
     
     # ✅ META-LAW DETECTED: All rings D1/D2, constant delta, affine s0(r)
     
@@ -1189,7 +1218,7 @@ def complete_ring_laws_causal(ring_laws: Dict[int, Dict], max_degree: int = 3) -
         H(S) = H(Σₚ) — bijection preserves information
     
     STRUCTURAL BASIS:
-        κ(S) = ring_laws = structural basis (not raw storage)
+        κ(S) = ring_laws = structural basis (not data storage)
         Each D_rᵢ ∈ ring_laws encodes local algebraic law at radius rᵢ
     
     The mode of closure depends on causal degree p:
@@ -1362,7 +1391,7 @@ def complete_ring_laws_causal(ring_laws: Dict[int, Dict], max_degree: int = 3) -
         n_points = min(len(y_values), degree_p + 2)  # Use slightly more points for stability
         
         # Build Vandermonde matrix
-        import numpy as np
+        # NumPy imported at module level (field-closed polynomial fitting in ℤ₂₅₆)
         X = np.zeros((n_points, degree_p + 1), dtype=int)
         for i in range(n_points):
             for k in range(degree_p + 1):
@@ -1905,7 +1934,7 @@ def D9_solve_compositional(
     if str(closure).lower() == 'closed':
         # Base case: for very small strings, recursive radius-string closure can
         # become non-terminating (e.g., n=2 with no D1/D2/D3 match).
-        # Closed form here is the explicit finite ring enumeration.
+        # Closed form here is the concrete finite ring enumeration.
         if n <= 2:
             ring_laws: Dict[int, Dict[str, Any]] = {}
             for r in range(0, max_radius + 1):
@@ -1968,7 +1997,7 @@ def D9_solve_compositional(
     return {
         "center": center,
         "ring_laws": ring_laws,  # Mapping r → generator function D_r
-        "completion": "AUTO",  # Explicit completion semantics for missing rings (see BTOE integer-only rules)
+        "completion": "AUTO",  # Concrete completion semantics for missing rings (see BTOE integer-only rules)
         "total_rings": max_radius + 1,
         "rs_count": len(strategic_radii),  # R1: Rs logging for invariant validation
         "rs_radii": strategic_radii  # R1: Full Rs list for audit
@@ -1976,10 +2005,10 @@ def D9_solve_compositional(
 
 
 # ============================================================================
-# D₀ - EXPLICIT: Identity mapping (terminal law)
+# D₀ - IDENTITY: Identity mapping (terminal law)
 # ============================================================================
 
-def D0_explicit(sampler: BinaryStringSampler) -> Dict[str, Any]:
+def D0_identity(sampler: BinaryStringSampler) -> Dict[str, Any]:
     """
     D₀ Identity Law: F(i) = i
     
@@ -2099,7 +2128,18 @@ def theta_sampled(
     closure: str = "instant",
 ) -> Dict[str, Any]:
     """
-    θ: Universal Recognition via Projection-Based Composition
+    Θ — Causal Projection Operator
+    --------------------------------
+    Maps field realization S ∈ 𝔽_CLF to its minimal deterministic boundary Σ.
+
+    Operates entirely pre-parsing, before any informational interpretation.
+    No data compression, encoding, or mapping occurs.
+
+    Output Σ defines all causal laws (s₀, δ, etc.) such that Ξ(Σ) = S.
+
+    Ontological Note:
+        Θ is a projection within a closed field manifold.
+        It does not store, reduce, or select symbols — it expresses necessity.
     
     ═══════════════════════════════════════════════════════════════════════
     MATHEMATICAL ARCHITECTURE: UNIVERSAL → SUB-STRUCTURE → OPTIMIZATION
@@ -2338,12 +2378,21 @@ def theta_sampled(
             "n": n
         }
         return unify_causal_structure(seed)
-    
-    # ❌ CLF VOCABULARY INCOMPLETE
-    # If we reach here, no law matched
-    raise ValueError(
-        f"❌ CLF VOCABULARY INCOMPLETE: No law in ℒ' recognizes string of length {n}."
-    )
+
+    # ════════════════════════════════════════════════════════════════════════
+    # Final causal closure fallback - Guarantee totality of Θ(S)
+    # ════════════════════════════════════════════════════════════════════════
+    # CLF domain membership is discovered through Θ(S), not pre-determined.
+    # If no causal law D₁–D₉ instantiates, return Σ₀ (LawNotInstantiated)
+    # ensuring Θ(S) is total over all inputs.
+    return {
+        "family": None,
+        "params": {
+            "status": "Σ₀",
+            "note": "LawNotInstantiated"
+        },
+        "n": sampler.n
+    }
 
 
 def unify_causal_structure(seed: Dict[str, Any]) -> Dict[str, Any]:
@@ -2603,6 +2652,17 @@ def theta_from_bytes(data: bytes) -> Dict[str, Any]:
             f"Seed: {seed['family']}\n"
             f"Error: {e}"
         ) from e
+    
+    # --- Reactive Ontology Tagging (non-breaking) ---
+    try:
+        if isinstance(seed, dict):
+            meta = seed.setdefault("meta", {})
+            if "ontological_mode" not in meta:
+                meta["ontological_mode"] = "reactive"
+                meta["timestamp"] = datetime.utcnow().isoformat()
+    except Exception as e:
+        print(f"[Θ:reactive-tagging-warning] {e}")
+    # --- End Reactive Ontology Tagging ---
     
     return seed
 

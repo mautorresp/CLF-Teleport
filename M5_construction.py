@@ -34,9 +34,9 @@ def make_RLE_SHORT_atom() -> Atom:
     return forward
 
 
-def make_RLE_EXPLICIT_atom(s0: int, delta_mod: int) -> Atom:
+def make_RLE_LINEAR_atom(s0: int, delta_mod: int) -> Atom:
     """
-    Construct RLE_EXPLICIT atom pair
+    Construct RLE_LINEAR atom pair
     
     Args:
         s0: Initial value (0-255)
@@ -46,8 +46,8 @@ def make_RLE_EXPLICIT_atom(s0: int, delta_mod: int) -> Atom:
         Atom with inverse relationship
     """
     theta_params = {"s0": s0, "delta_mod": delta_mod}
-    forward = Atom("RLE_EXPLICIT", theta_params)
-    inverse = Atom("RLE_EXPLICIT_INV", theta_params.copy())
+    forward = Atom("RLE_LINEAR", theta_params)
+    inverse = Atom("RLE_LINEAR_INV", theta_params.copy())
     forward.inv = inverse
     inverse.inv = forward
     return forward
@@ -313,11 +313,11 @@ def Pi_0_RLE_SHORT(n: int) -> Prog:
     )
 
 
-def Pi_0_RLE_EXPLICIT(n: int, s0: int, delta: int) -> Prog:
+def Pi_0_RLE_LINEAR(n: int, s0: int, delta: int) -> Prog:
     """
     Construct Π₀ for D2 (affine law)
     
-    Program: RLE_EXPLICIT(s0, δ_mod)
+    Program: RLE_LINEAR(s0, δ_mod)
     Output: s0, s0+Δ, s0+2Δ, ... (mod 256)
     
     Args:
@@ -330,7 +330,7 @@ def Pi_0_RLE_EXPLICIT(n: int, s0: int, delta: int) -> Prog:
     """
     # Convert canonical delta to modular form
     delta_mod = delta if delta >= 0 else (256 + delta)
-    atom = make_RLE_EXPLICIT_atom(s0, delta_mod)
+    atom = make_RLE_LINEAR_atom(s0, delta_mod)
     
     return Prog(
         n=n,
@@ -436,7 +436,7 @@ def Pi_0_D4_XOR_AFFINE(n: int, s0: int, delta: int, xor_const: int) -> Prog:
     
     Strategy (Bijective CLF Boolean):
       Single D4_XOR_AFFINE atom that writes entire output atomically.
-      No cursor needed - writes directly to ℓ_out like RLE_EXPLICIT.
+      No cursor needed - writes directly to ℓ_out like RLE_LINEAR.
     
     Args:
         n: String length
@@ -630,7 +630,7 @@ def Pi_0(S: bytes, theta_params: Optional[Dict] = None) -> Prog:
         return Pi_0_RLE_SHORT(n)
     
     elif family == 'D2':
-        return Pi_0_RLE_EXPLICIT(n, params['s0'], params['delta'])
+        return Pi_0_RLE_LINEAR(n, params['s0'], params['delta'])
     
     elif family == 'D3':
         return Pi_0_COMPOSE_with_COPY(S, params)
@@ -693,14 +693,14 @@ def verify_construction(S: bytes, P: Prog) -> bool:
 __all__ = [
     # Atom constructors
     'make_RLE_SHORT_atom',
-    'make_RLE_EXPLICIT_atom',
+    'make_RLE_LINEAR_atom',
     'make_CONST_atom',
     'make_COPY_atom',
     'make_XOR_CONST_atom',
     
     # Program constructors
     'Pi_0_RLE_SHORT',
-    'Pi_0_RLE_EXPLICIT',
+    'Pi_0_RLE_LINEAR',
     'Pi_0_COMPOSE_per_byte',
     'Pi_0_COMPOSE_with_COPY',
     

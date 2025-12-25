@@ -58,7 +58,7 @@ def measure(P: Prog) -> Tuple[int, int, int]:
     for i in range(len(P.BODY) - 1):
         base1 = P.BODY[i].family.replace('_INV', '')
         base2 = P.BODY[i+1].family.replace('_INV', '')
-        if base1 == base2 and base1 in ['CONST', 'RLE_EXPLICIT']:
+        if base1 == base2 and base1 in ['CONST', 'RLE_LINEAR']:
             unfused_count += 1
     
     return (id_count, inv_pair_count, unfused_count)
@@ -141,7 +141,7 @@ def can_fuse(a1: Atom, a2: Atom) -> bool:
     Fusion rules:
     - Same base family
     - Same polarity (both forward or both inverse)
-    - Fusible family (RLE_EXPLICIT, CONST)
+    - Fusible family (RLE_LINEAR, CONST)
     
     Args:
         a1, a2: Atoms to check
@@ -159,7 +159,7 @@ def can_fuse(a1: Atom, a2: Atom) -> bool:
         return False
     
     # Only certain families support fusion
-    fusible_families = {'RLE_EXPLICIT', 'CONST'}
+    fusible_families = {'RLE_LINEAR', 'CONST'}
     return base1 in fusible_families
 
 
@@ -167,7 +167,7 @@ def fuse_atoms(a1: Atom, a2: Atom) -> Optional[Atom]:
     """
     Fuse two adjacent same-family atoms
     
-    RLE_EXPLICIT fusion: Check if second continues first
+    RLE_LINEAR fusion: Check if second continues first
     CONST fusion: Combine adjacent constants
     
     Args:
@@ -181,7 +181,7 @@ def fuse_atoms(a1: Atom, a2: Atom) -> Optional[Atom]:
     
     base = a1.family.replace('_INV', '')
     
-    if base == 'RLE_EXPLICIT':
+    if base == 'RLE_LINEAR':
         # Check if a2 continues where a1 left off
         # This is semantic-dependent and simplified here
         # Full implementation requires knowing arity split
@@ -311,7 +311,7 @@ def rewrite_R5_canonical_HEAD(P: Prog) -> Optional[Prog]:
     
     canonical_omega = {
         'RLE_SHORT': 0x01,
-        'RLE_EXPLICIT': 0x01,
+        'RLE_LINEAR': 0x01,
         'D4_XOR_AFFINE': 0x04,
         'D5_QUADRATIC': 0x05,
         'D6_LCG': 0x06,

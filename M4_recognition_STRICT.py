@@ -610,7 +610,7 @@ def D9_radial_law(S: bytes) -> Optional[Dict]:
         # Σ_r must be symbolic law
         assert 'family' in ring_seed, "CLF violation: ring seed missing family"
         assert not isinstance(ring_seed.get('params', {}).get('bytes'), bytes) or \
-               ring_seed['family'] == 'D0_EXPLICIT', \
+               ring_seed['family'] == 'D0_IDENTITY', \
                "CLF violation: non-D0 law storing raw bytes"
         
         ring_laws[r] = ring_seed
@@ -637,7 +637,7 @@ def _recognize_ring_structure(ring: bytes) -> Dict:
     n = len(ring)
     if n == 0:
         # Empty ring: identity mapping
-        return {"family": "D0_EXPLICIT", "params": {"bytes": b""}, "n": 0}
+        return {"family": "D0_IDENTITY", "params": {"bytes": b""}, "n": 0}
     
     # Deduce atomic laws (D1-D8)
     d1 = D1_const_law(ring)
@@ -670,7 +670,7 @@ def _recognize_ring_structure(ring: bytes) -> Dict:
     
     # D0: Explicit (degenerate case - ring has no shorter law)
     # CLF: ALWAYS succeeds (bijection Ξ(θ(S_r)) = S_r guaranteed)
-    return {"family": "D0_EXPLICIT", "params": {"bytes": ring}, "n": n}
+    return {"family": "D0_IDENTITY", "params": {"bytes": ring}, "n": n}
 
 
 # ============================================================================
@@ -1158,7 +1158,7 @@ def theta_strict(S: bytes, _depth: int = 0) -> Dict:
     # Success condition: Ξ(θ(S)) = S (bijection), not seed size
     # INSTANT: Store as bytes (O(1)), not list(S) (O(n))
     return {
-        "family": "D0_EXPLICIT",
+        "family": "D0_IDENTITY",
         "params": {"bytes": S},  # The function definition f: ℕ → {0..255}
         "n": n
     }

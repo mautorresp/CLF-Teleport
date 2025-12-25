@@ -64,7 +64,14 @@ from typing import Dict, Any
 
 def Xi_projected(seed: Dict[str, Any], i: int) -> int:
     """
-    Ξ: Pure Projection Operator - Evaluate byte at position i
+    Ξ — Field Completion Operator
+    ------------------------------
+    Expands a causal boundary Σ into its inevitable realization S = Ξ(Σ).
+
+    Operates purely under internal causal field rules.
+    All field samples fᵢ ∈ S are algebraically entailed by Σ.
+
+    No data lookup, entropy encoding, or stochastic evaluation occurs.
     
     ═══════════════════════════════════════════════════════════════════════════
     CLF MATHEMATICAL INTERFACE: S[i] = D(i, params)

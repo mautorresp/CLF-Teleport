@@ -2,6 +2,27 @@
 """
 CLF Triple-Hash Validator — Mathematical + Cryptographic Verification
 
+═════════════════════════════════════════════════════════════════════════════════
+🔮 CLF ONTOLOGICAL CONTEXT
+═════════════════════════════════════════════════════════════════════════════════
+
+# === CLF Ontological Domain ==============================================
+# Operates pre-parsing: seeds define causal fields, not data subsets.
+# This module implements validation over the same manifold 𝔽_CLF.
+# CLF Ontological Domain:
+#   All seeds (Σ) and strings (S) exist within the same closed causal field (𝔽_CLF).
+#   Θ(S) projects causal boundary conditions.
+#   Ξ(Σ) evaluates the inevitable field completion.
+#   No selection, lookup, or external data mapping is performed.
+# ==========================================================================
+
+# Triple Validation:
+# ν_P  – Grid-level bijection check (field anchors)
+# ν_CLF – Field-level invariant check (ring laws)
+# SHA256(P(n)) – Physical equivalence check (collision-resistant)
+# Bit-perfect closure holds if and only if:
+#     ν_P == 0 and ν_CLF == 0 and SHA256(P(n)) matches
+
 Validates CLF bijection using three independent proofs:
 1. CLF-Hash (grid): ν_P(S,Σ) = Σ_{i∈P(n)} [S[i] - Ξ(Σ)[i]]·i mod 256
 2. CLF-Full Hash (field): ν_CLF(S,Σ) = (H_CLF(S) - H_CLF(Σ)) mod 256
@@ -217,9 +238,9 @@ def validate_file_dual(file_path: str) -> dict:
     sha_original = sha256_hash_at_positions(S, test_positions)
     sha_reconstructed = sha256_hash_reconstruction(Sigma, test_positions)
     
-    print(f"\n  SHA-256 (cryptographic):")
-    print(f"    H(S):   {sha_original[:16]}...")
-    print(f"    H(Ξ(Σ)): {sha_reconstructed[:16]}...")
+    print(f"\n  SHA-256(P(n)) (cryptographic):")    
+    print(f"    H(S|P(n)):   {sha_original[:16]}...")
+    print(f"    H(Ξ(Σ)|P(n)): {sha_reconstructed[:16]}...")
     
     sha_match = (sha_original == sha_reconstructed)
     if sha_match:
@@ -290,6 +311,13 @@ def validate_file_dual(file_path: str) -> dict:
 
 
 def main():
+    # === CLF Validation Ontology =========================================
+    # Validation here is structural, not statistical.
+    # ν_P = 0 and ν_CLF = 0 confirm field closure:
+    #     Ξ(Θ(S)) = S over 𝔽_CLF
+    # SHA-256(P(n)) adds collision-resistant confirmation of physical execution.
+    # ======================================================================
+    
     # Initialize governance
     initialize_clf_governance()
     print("═" * 80)
@@ -408,6 +436,69 @@ def main():
     
     print()
     print("═" * 80)
+
+
+def export_seed(S, Sigma, filename):
+    """
+    Export field-native seed to vault (no JSON format).
+    
+    Creates mathematical representation of causal seed in ℤ₂₅₆ format.
+    This is the CLF field projection, not parsable metadata.
+    
+    Args:
+        S: Original string (BinaryStringSampler)
+        Sigma: CLF seed
+        filename: Output file path
+    """
+    from clf_spec import get_causal_grid
+    
+    positions = get_causal_grid()[:min(29, S.n)]  # Use causal grid P(n)
+    
+    H_S = clf_hash_projected(S, positions)
+    H_Sigma = clf_hash_reconstruction(Sigma, positions)
+    nu_P = (H_S - H_Sigma) % 256
+    nu_CLF = clf_field_invariant(Sigma)
+    
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write("# CLF-SEED (Field-Native Format)\n")
+        f.write(f"# Mathematical object in ℤ₂₅₆ - not parsable metadata\n")
+        f.write(f"H_P(S): {H_S}\n")
+        f.write(f"H_P(Σ): {H_Sigma}\n")
+        f.write(f"ν_P: {nu_P}\n")
+        f.write(f"ν_CLF: {nu_CLF}\n")
+        f.write(f"# Causal closure verified: {nu_P == 0 and nu_CLF == 0}\n")
+
+
+def negative_validation(S):
+    """
+    Discriminative integrity test - ensures validator detects tampering.
+    
+    Tampers with first byte of S and validates that ν_P(S, S_tampered) ≠ 0.
+    This confirms the validator's discriminative power.
+    
+    Args:
+        S: Original binary string (BinaryStringSampler)
+        
+    Raises:
+        AssertionError: If validator fails to detect mismatch
+    """
+    from M4_recognition_SAMPLED import BinaryStringSampler
+    
+    # Create tampered version
+    original_data = bytearray(S.data)
+    tampered_data = bytearray(S.data)
+    tampered_data[0] ^= 1  # Flip first bit
+    
+    S_tampered = BinaryStringSampler(bytes(tampered_data))
+    
+    # Compute ν_P for mismatch detection
+    positions = [i for i in range(min(50, S.n))]  # Strategic positions
+    nu_P_original = clf_hash_projected(S, positions)
+    nu_P_tampered = clf_hash_projected(S_tampered, positions)
+    
+    assert nu_P_original != nu_P_tampered, "Validator failed to detect mismatch - discriminative integrity violation"
+    
+    print(f"  ✅ Discriminative validation: ν_P changed from {nu_P_original} to {nu_P_tampered}")
 
 
 if __name__ == '__main__':

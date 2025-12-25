@@ -89,7 +89,7 @@ def regenerate_from_seed(Sigma: Dict[str, Any]) -> bytes:
         return regenerate_D9_radial(n, params)
     elif family == 'D10_SPIRAL':
         return regenerate_D10_spiral(n, params)
-    elif family == 'D0_EXPLICIT':
+    elif family == 'D0_IDENTITY':
         # Identity law: S[i] = bytes[i]
         return bytes(params['bytes'])
     elif family == 'D_SPLIT':

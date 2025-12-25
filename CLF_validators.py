@@ -39,16 +39,16 @@ def validate_causal_seed(Σ):
     family = Σ["family"]
     params = Σ["params"]
     
-    # D0_EXPLICIT is allowed to store bytes (degenerate case)
-    if family == "D0_EXPLICIT":
-        assert "bytes" in params, "D0_EXPLICIT missing 'bytes' parameter"
+    # D0_IDENTITY is allowed to store mathematical identity mapping (terminal case)
+    if family == "D0_IDENTITY":
+        assert "bytes" in params, "D0_IDENTITY missing 'bytes' parameter"
         return
     
-    # All other families must NOT store raw bytes
+    # All other families must NOT store manifestation data
     for key, value in params.items():
         if isinstance(value, (bytes, bytearray)):
             raise AssertionError(
-                f"CLF violation: {family} seed stores raw bytes in '{key}' parameter. "
+                f"CLF violation: {family} seed stores manifestation data in '{key}' parameter. "
                 f"Seeds must contain only symbolic laws (family, params), never data."
             )
     
@@ -552,7 +552,7 @@ if __name__ == "__main__":
     validate_causal_seed(Σ_d9)
     print("✓ D9 seed with ring_laws valid")
     
-    # Test 3: Invalid seed (stores bytes)
+    # Test 3: Invalid seed (stores manifestation data)
     try:
         Σ_bad = {"family": "D9_RADIAL", "params": {"pattern": b"\\x42\\x42"}, "n": 100}
         validate_causal_seed(Σ_bad)
