@@ -2447,6 +2447,38 @@ See [CLF_FORMAL_CONSTRAINTS.md](CLF_FORMAL_CONSTRAINTS.md) Section 1.2 for compl
 
 **Uniqueness Theorem**: For any effect S, the cause Σ = θ(S) is unique.
 
+**CRITICAL CLARIFICATION FOR AUDITORS:**
+
+Auditors often see "unique" and infer: "Must use argmin + tie-break to ensure uniqueness."
+
+**This is backwards.** CLF achieves uniqueness through recognition order, not through tie-breaking:
+
+```python
+# ❌ WRONG: Uniqueness via tie-breaking (compression approach)
+def ensure_unique_via_tiebreak(S):
+    candidates = [try_D1(S), try_D2(S), ..., try_D9(S)]
+    valid = [c for c in candidates if c is not None]
+    shortest = [c for c in valid if len(c) == min(len(v) for v in valid)]
+    if len(shortest) > 1:  # Tie occurred
+        return lexmin(shortest)  # Tie-break rule needed
+    return shortest[0]
+
+# ✓ CORRECT: Uniqueness via recognition order (CLF)
+def ensure_unique_via_sequence(S):
+    if (seed := try_D1(S)): return seed  # Unique by returning first
+    if (seed := try_D2(S)): return seed  # Never ties with D1
+    # ... D3-D9 ...
+    return try_D_DISCRETE_TABLE(S)  # Universal fallback
+    # Unique by construction, tie-break unnecessary
+```
+
+**The recognition sequence IS the uniqueness mechanism:**
+- For S = [5,5,5,5]: Both D₁ and D₂ could match
+- D₁ tried first → matches → returns → D₂ never evaluated
+- Result: Unique seed (D₁) without any tie-breaking
+
+**Uniqueness does not require tie-breaking when the algorithm returns first match.**
+
 **Proof**:
 
 ```
@@ -2472,8 +2504,25 @@ Contradiction with Σ₁ ≠ Σ₂ assumption ∎
 - Each effect S has exactly ONE causal structure
 - Different notations of same structure are equivalent (Σ₁ ≡ Σ₂)
 - θ discovers this unique structure, doesn't create multiple alternatives
+- **Recognition order resolves notation choice: first match wins**
 
 **No post-selection**: θ doesn't try multiple seeds and pick one. It deduces the ONLY structure that could produce S.
+
+**Why "Canonical Tie-Break" does not exist:**
+
+The auditor's requested formula:
+```
+θ(S) = argmin_{Σ: Ξ(Σ)=S} |C(Σ)|
+Tie-break: if |C(Σ₁)| = |C(Σ₂)|, choose lexmin(Σ₁, Σ₂)
+```
+
+**This formula is architecturally incompatible with CLF because:**
+1. CLF never evaluates the set {Σ: Ξ(Σ)=S} (would require trying all families)
+2. CLF never computes |C(Σ)| (no bit-length encoding during recognition)
+3. "Tie" cannot occur when only one candidate exists in memory at a time
+4. Uniqueness is guaranteed by recognition order, not by argmin selection
+
+**If you implement the auditor's formula, you are building a compression algorithm, not CLF.**
 
 **Ξ Injectivity Theorem**:
 
