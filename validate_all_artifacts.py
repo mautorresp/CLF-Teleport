@@ -35,8 +35,9 @@ def clf_signature(files: tuple[str, ...] = ("M4_recognition_SAMPLED.py", "M3_xi_
 
 print("═" * 80)
 print("CLF CAUSAL UNIFICATION VALIDATION")
-print("Domain: Reactive totality — lawful realizations discovered dynamically.")
-print("Note: Random or non-causal sequences may return Σ₀ (LawNotInstantiated).")
+print("Input Scope: Universal (any OS-parsable binary string)")
+print("Extraction Vocabulary: Finite (D₁–D₉ causal families)")
+print("Note: Θ extracts structure where it exists. Σ₀ indicates no extractable structure found.")
 print("═" * 80)
 
 # --- CLF Coherence Utility ---
@@ -122,11 +123,11 @@ def validate_file(filepath: Path) -> dict:
         
         status = seed1.get("params", {}).get("status", "")
         if status == "Σ₀":
-            print(f"⚠️ Non-lawful realization: Θ(S) returned Σ₀ (outside current 𝔽_CLF).")
-            print(f"    {filepath.name} does not satisfy finite causal closure (D₁–D₉).")
-            print(f"    → Falsifiability boundary detected.")
+            print(f"⚠️ Extraction incomplete: Θ(S) returned Σ₀ (vocabulary incompleteness).")
+            print(f"    {filepath.name}: No extractable causal structure found within D₁–D₉.")
+            print(f"    → Input processed, structure absent (falsifiability proven).")
         else:
-            print(f"✅ Lawful realization: Θ(S) ∈ 𝔽_CLF (recognized causal law).")
+            print(f"✅ Structure extracted: Θ(S) found causal pattern.")
             print(f"    {filepath.name}: {family}, meta: {meta}")
         
         # --- Reflexive Self-Report (read-only) ---
@@ -415,17 +416,18 @@ def main():
     print("  Metrics reflect structural dimensionality, not encoded byte length.\n")
     
     # --- Falsifiability Summary ---
-    lawful_count = sum(1 for r in results if r.get("theta_success") and r.get("seed1", {}).get("params", {}).get("status") != "Σ₀")
+    extracted_count = sum(1 for r in results if r.get("theta_success") and r.get("seed1", {}).get("params", {}).get("status") != "Σ₀")
     sigma0_count = sum(1 for r in results if r.get("seed1", {}).get("params", {}).get("status") == "Σ₀")
     
     print("═══════════════════════════════════════════════════════════════")
-    print("CLF DOMAIN SUMMARY (Falsifiability Report)")
-    print(f"  Lawful realizations (Θ(S) ∈ 𝔽_CLF): {lawful_count}")
-    print(f"  Non-lawful (Θ(S) = Σ₀): {sigma0_count}")
+    print("CLF EXTRACTION SUMMARY (Falsifiability Report)")
+    print(f"  Structures extracted (Θ found causal pattern): {extracted_count}")
+    print(f"  Extraction incomplete (Θ returned Σ₀): {sigma0_count}")
     if sigma0_count == 0:
-        print("  ✅ Current ℒ_CLF is total over tested corpus (empirical success).")
+        print("  ✅ Current D₁–D₉ vocabulary extracted structure from all tested inputs.")
     else:
-        print("  ⚠️ Σ₀ cases found — extend ℒ_CLF or accept domain limit.")
+        print("  ⚠️ Σ₀ cases found — extend D₁–D₉ vocabulary or accept vocabulary limit.")
+    print("  Note: 𝔽_CLF is the output set (extracted structures), not an input filter.")
     print("═══════════════════════════════════════════════════════════════\n")
     # --- End Falsifiability Summary ---
     

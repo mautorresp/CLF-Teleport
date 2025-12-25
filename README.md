@@ -1,29 +1,32 @@
 # Causal Logic Framework (CLF)
 
-**CLF is a finite, reactive, falsifiable causal law framework.**  
-Θ and Ξ are bijective within the discovered lawful domain 𝔽_CLF.  
-The system expands reactively as new lawful realizations are recognized.  
-Random or non-causal sequences fall outside 𝔽_CLF and yield Σ₀, preserving falsifiability and respecting classical information bounds.  
-CLF achieves **empirical completeness** — not declared universality — and remains scientifically honest, finite, and total within its proven scope.
+**CLF is a finite, reactive, falsifiable causal law framework with universal input scope.**  
+CLF operates on ANY OS-parsable binary string, extracting causal structure where it exists.  
+Θ and Ξ are bijective within the discovered output set 𝔽_CLF (strings with extractable causal structure).  
+The system expands reactively as new causal structures are discovered through extraction.  
+Strings without extractable structure (within the finite D₁–D₉ vocabulary) return Σ₀, proving falsifiability.  
+CLF achieves **universal input coverage** with **finite extraction vocabulary** — scientifically honest and testable.
 
 ---
 
 ## Ontological Domain of CLF
 
-CLF operates entirely within a **closed causal field (𝔽_CLF)**.
+CLF operates on **any OS-parsable binary string** (universal input scope).  
+𝔽_CLF is the **output set** — strings where Θ successfully extracted causal structure.
 
 No data mapping, symbol encoding, or compression occurs.
 
-All operations — projection (Θ), expansion (Ξ), and validation — are **internal field evaluations** governed by deterministic causal laws.
+All operations — extraction (Θ), expansion (Ξ), and validation — are **existence-based structure recognition** governed by deterministic causal laws.
 
-- Input: Field realization `S` ∈ 𝔽_CLF  
-- Output: Boundary condition (seed) `Σ = Θ(S)`  
-- Expansion: `Ξ(Σ)` is the unique field completion of `Σ`  
-- Validation: `Ξ(Θ(S)) = S` confirms field closure identity  
+- Input: Any binary string `S` (universal scope)
+- Extraction: `Σ = Θ(S)` if structure exists; `Σ₀` if vocabulary incomplete
+- Output set: `𝔽_CLF = {S : Θ(S) ≠ Σ₀}` (discovered reactively)
+- Expansion: `Ξ(Σ)` instantiates the structure encoded in seed `Σ`
+- Validation: `Ξ(Θ(S)) = S` confirms bijection for S ∈ 𝔽_CLF
 
-CLF does **not** store, compress, or select data; it enforces **causal necessity** within its own manifold.
+CLF does **not** store, compress, or select data; it **extracts pre-existing causal structure** from mathematical strings.
 
-> **String vs. Information Separation**: CLF operates at the **pre-parsing** level, distinguishing strings from data and information. The causal field `𝔽_CLF` contains string realizations `S` in their raw form. Only when instantiation occurs via `Ξ(Σ)` can parsing take place to extract data structures or information content. This separation is fundamental: CLF processes the **causal substrate** (strings) rather than their interpreted meaning.
+> **String vs. Information Separation**: CLF operates at the **pre-parsing** level, distinguishing strings from data and information. Θ extracts structure from raw byte sequences before any parsing. Only when instantiation occurs via `Ξ(Σ)` can parsing take place to interpret data structures or information content. This separation is fundamental: CLF processes the **causal substrate** (strings) rather than their interpreted meaning.
 
 > **Terminology Note**: CLF uses field-theoretic semantics.  
 > "Files," "bytes," and "hashes" refer to internal field states, not data constructs.
@@ -179,12 +182,20 @@ $$
 
 This expresses **causal dimensional reduction**, not **information compression**.
 
-### Domain Restriction
+### Universal Input Scope with Finite Extraction Vocabulary
 
-Θ and Ξ are defined only for causally lawful field realizations within 𝔽_CLF.  
-Random or non-causal sequences have no defined Θ and cannot be represented in this framework.  
+CLF operates on **any OS-parsable binary string** (universal input scope).  
+Θ extracts causal structure using a finite vocabulary (D₁–D₉) — structure that already exists in the string.
 
-Therefore, "adversarial bitstrings" or random noise are not valid CLF inputs, as they do not satisfy finite causal law closure.
+**Key principle: Existence-based extraction, not selection-based filtering.**
+
+- Input domain: All OS-parsable binary strings (unrestricted)
+- Extraction vocabulary: D₁–D₉ causal families (finite, fixed)
+- Output set 𝔽_CLF: Strings where Θ successfully extracted structure
+- Σ₀ return: No extractable structure found within D₁–D₉ vocabulary
+
+Random noise, adversarial bitstrings, high-entropy data are **valid inputs** — they simply may not have extractable causal structure.  
+This is why CLF is **universal and falsifiable**: it accepts all inputs, extracts structure where it exists, and honestly reports Σ₀ when vocabulary is incomplete.
 
 ---
 
@@ -284,28 +295,33 @@ Comprehensive testing across 24 diverse field realizations (8.7GB total data) va
 
 All ratios derive directly from field evaluations, not approximations. The validator computes these at runtime — no hypothesis, only evidence.
 
-### Domain Realization via Θ(S)
+### Extraction via Θ(S)
 
-CLF defines the finite causal field 𝔽_CLF implicitly through recognition.
+CLF extracts causal structure from any input string using the finite D₁–D₉ vocabulary.  
+𝔽_CLF is the **output set** — strings where structure was successfully extracted.
 
 $$
 \Theta(S) =
 \begin{cases}
-\Sigma & \text{if } S \text{ satisfies some } D_k \in \mathcal{L}_{CLF} \\
-\Sigma_0 & \text{otherwise (LawNotInstantiated)}
+\Sigma & \text{if Θ extracts structure matching some } D_k \in \mathcal{L}_{CLF} \\
+\Sigma_0 & \text{otherwise (vocabulary incomplete for S)}
 \end{cases}
 $$
 
-Thus, domain membership is **not pre-determined**; it is discovered through Θ(S).
+Thus, 𝔽_CLF membership is **discovered through extraction**, not pre-determined by input validation.
 
-All valid realizations satisfy:
+For extracted structures (S ∈ 𝔽_CLF):
 $$
 \Xi(\Sigma) = S
 $$
-All undefined realizations yield:
+For extraction failures (Θ(S) = Σ₀):
 $$
 \Xi(\Sigma_0) = \varnothing
 $$
+
+**Universal input scope**: Any OS-parsable binary string can be processed by Θ.  
+**Finite extraction vocabulary**: Only D₁–D₉ patterns are extractable.  
+**Reactive output set**: 𝔽_CLF = {S : Θ(S) ≠ Σ₀} expands as new structures are extracted.
 
 ---
 
@@ -315,14 +331,14 @@ To prevent misinterpretation, the following table defines core CLF terms precise
 
 | Term | Correct Meaning | Common Misinterpretation to Avoid |
 |------|----------------|----------------------------------|
-| **Reactive Totality** | Domain 𝔽_CLF expands reactively as Θ successfully recognizes new realizations | ≠ "Universal totality" — CLF does not claim Θ is defined for all 𝕌 |
-| **Σ₀** | Falsification marker indicating S is outside current 𝔽_CLF | ≠ System failure or "synthesis miss" |
-| **ℒ_local** | Metadata cache recording which causal law (D₁–D₉) matched an artifact | ≠ Dynamically synthesized new law |
-| **Finite Law Space** | The nine fixed causal families (D₁–D₉) | ≠ Extensible or generative law vocabulary |
-| **Falsifiability** | Scientific testability via Σ₀ boundary detection | ≠ Programming bug or implementation error |
-| **Domain Restriction** | CLF operates only on causally lawful realizations | ≠ Limitation — this is a definitional boundary |
+| **Reactive Totality** | Output set 𝔽_CLF expands reactively as Θ extracts structure from new inputs | Universal input scope, reactive output discovery |
+| **Σ₀** | Vocabulary incompleteness marker — no extractable structure found within D₁–D₉ | ≠ Input rejection or system failure |
+| **ℒ_local** | Metadata cache recording which causal law (D₁–D₉) was extracted | ≠ Dynamically synthesized new law |
+| **Finite Law Space** | The nine fixed causal families (D₁–D₉) comprising extraction vocabulary | ≠ Extensible or generative law vocabulary |
+| **Falsifiability** | Scientific testability via Σ₀ when extraction vocabulary incomplete | ≠ Programming bug or implementation error |
+| **Universal Input Scope** | CLF accepts any OS-parsable binary string (no input restrictions) | Extraction vocabulary is finite (D₁–D₉), not input domain |
 
-**Key insight**: Reactive totality means 𝔽_CLF grows empirically (with each successful recognition), but Θ does not guarantee lawful representation for arbitrary noise or random sequences.
+**Key insight**: Universal input scope means CLF accepts ANY OS-parsable binary string. Reactive totality means 𝔽_CLF (the output set of strings with extracted structure) grows empirically with each successful extraction. Θ extracts structure where it exists — absence of extractable structure (Σ₀) is scientifically honest reporting, not input rejection.
 
 ---
 
@@ -350,16 +366,17 @@ This is an essential design property ensuring **scientific falsifiability**.
 
 ## Falsifiability Criterion
 
-If Θ(S) = Σ₀, the system has encountered a realization outside current 𝔽_CLF.
+If Θ(S) = Σ₀, the extraction vocabulary (D₁–D₉) did not find causal structure in S.
 
 $$
-\exists S : \Theta(S) = \Sigma_0 \Rightarrow \mathcal{L}_{CLF} \text{ incomplete}
+\exists S : \Theta(S) = \Sigma_0 \Rightarrow \mathcal{L}_{CLF} \text{ vocabulary incomplete for S}
 $$
 
 **This does not invalidate CLF** — it defines its scientific honesty.  
+S was processed (universal input scope), but no structure was extractable within the finite D₁–D₉ vocabulary.  
 When Σ₀ occurs, either:
 1. Extend ℒ_CLF by adding a new causal family (requires formal mathematical definition), or
-2. Accept the boundary of current formal coverage
+2. Accept that S lacks extractable structure within current vocabulary
 
 **Empirical validation to date:**  
 24/24 lawful realizations tested, **0 Σ₀ cases observed**.
@@ -404,16 +421,18 @@ It operates on **structural recognition** at the pre-symbolic layer.
 
 **Why CLF respects information-theoretic bounds:**
 
-Only strings satisfying finite causal closure belong to 𝔽_CLF.  
-Random or high-entropy sequences fall outside this domain (return Σ₀).
+CLF operates on all inputs but extracts structure only where it exists.  
+Random or high-entropy sequences are valid inputs — they simply may lack extractable structure (return Σ₀).
 
-This domain restriction prevents the pigeonhole paradox:
+**This existence-based extraction prevents the pigeonhole paradox:**
 - For n-byte strings, there are 2^(8n) possible sequences
-- CLF does not claim to represent all 2^(8n) with finite seeds
-- CLF represents only the subset 𝔽_CLF ⊂ 𝕌 that satisfies D₁–D₉ structural laws
+- CLF accepts all 2^(8n) as inputs (universal scope)
+- CLF extracts structure only from the subset 𝔽_CLF ⊂ 𝕌 where D₁–D₉ patterns exist
+- Finite vocabulary (D₁–D₉) guarantees finite seed space for 𝔽_CLF
+- Strings outside 𝔽_CLF return Σ₀ (honest reporting of extraction failure)
 
 **Information theory remains intact.**  
-CLF operates pre-symbolically, identifying structural equivalence classes before any encoding or compression occurs.
+CLF extracts pre-existing structure, not arbitrary compression. Universal input coverage with finite extraction vocabulary is consistent with Shannon bounds.
 
 ---
 
